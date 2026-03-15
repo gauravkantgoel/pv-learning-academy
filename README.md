@@ -58,7 +58,7 @@ Five progressive stages, each with teaching content, interactive visuals, and a 
 
 ## Contributing
 
-Contributions welcome — especially:
+Contributions welcome, especially:
 
 - **New modules** (PSUR/PBRER, RMP, case processing, MedDRA coding)
 - **Additional scenarios** for existing stages
