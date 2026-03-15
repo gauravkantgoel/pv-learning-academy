@@ -17,7 +17,7 @@ Five progressive stages, each with teaching content, interactive visuals, and a 
 | Stage | What it covers | Interactive exercise |
 |-------|---------------|---------------------|
 | **Fundamentals** | What is a signal, signal vs risk, signal lifecycle | Signal ladder + lifecycle flow (→ PBRER → RMP) |
-| **Detection** | Methods, disproportionality, subgroups, error review | **SDR triage table** — prioritize 8 flagged drug-event pairs |
+| **Detection** | Methods, disproportionality, subgroups, error review | **SDR triage table**  prioritize 8 flagged drug-event pairs |
 | **Evaluation** | Chronology, confounding, plausibility, clinical coherence | **Challenge the recommendation** — agree/disagree with reasoned actions |
 | **Action & Tracking** | Proportionate response, DHPC, risk minimization, monitoring | Action planner with seriousness × certainty × mechanism |
 | **Scenarios** | Integrated signal management across all stages | **Branching crisis scenario** — "The Veritanib Crisis: 72 Hours" |
