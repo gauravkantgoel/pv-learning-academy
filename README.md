@@ -1,6 +1,6 @@
 # PV Learning Academy
 
-**Interactive pharmacovigilance training — free, open-source, zero dependencies.**
+**Interactive pharmacovigilance training - free, open-source, zero dependencies.**
 
 A browser-based learning platform for pharmacovigilance professionals. The first module covers **Signal Management** end-to-end: from fundamentals through detection, evaluation, action, and integrated scenarios — with realistic exercises that test judgment, not just recall.
 
