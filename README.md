@@ -4,7 +4,7 @@
 
 A browser-based learning platform for pharmacovigilance professionals. The first module covers **Signal Management** end-to-end: from fundamentals through detection, evaluation, action, and integrated scenarios — with realistic exercises that test judgment, not just recall.
 
-🔗 **[Launch the app →](https://YOUR_USERNAME.github.io/pv-learning-academy/)**
+🔗 **[Launch the app →](https://gauravkantgoel.github.io/pv-learning-academy/)**
 
 ---
 
