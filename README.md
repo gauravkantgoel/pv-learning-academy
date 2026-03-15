@@ -70,7 +70,7 @@ Contributions welcome — especially:
 
 ## License
 
-MIT — use it, share it, adapt it.
+MIT: use it, share it, adapt it.
 
 ---
 
