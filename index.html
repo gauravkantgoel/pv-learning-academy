@@ -13,17 +13,17 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="PV Learning Academy — Interactive Pharmacovigilance Training" />
   <meta property="og:description" content="Free interactive learning app for PV professionals. Signal management module with scenario-based checkpoints, SDR triage exercises, branching crisis simulations, and GVP IX regulatory mapping." />
-  <meta property="og:image" content="https://raw.githubusercontent.com/gauravkantgoel/pv-learning-academy/main/og-image.svg" />
+  <meta property="og:image" content="" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:url" content="https://gauravkantgoel.github.io/pv-learning-academy/" />
+  <meta property="og:url" content="" />
   <meta property="og:site_name" content="PV Learning Academy" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="PV Learning Academy — Interactive Pharmacovigilance Training" />
   <meta name="twitter:description" content="Free interactive signal management training. Scenario-based checkpoints, SDR triage, branching crisis simulations, ICSR exercises. No login required." />
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/gauravkantgoel/pv-learning-academy/main/og-image.svg" />
+  <meta name="twitter:image" content="" />
 
   <!-- Favicon (inline SVG as data URI) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c67b1a'/><text x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='bold' fill='white' text-anchor='middle'>PV</text></svg>" />
@@ -582,7 +582,7 @@
     }
 
     .decision-map {
-      display: grid; grid-template-columns: 1fr 1fr;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
       gap: 10px; margin-top: 12px;
     }
     .decision-cell {
@@ -1291,9 +1291,11 @@
           { title: 'Signal vs risk', text: 'A signal says "maybe." A confirmed risk says "evidence now supports this as part of the product\'s safety profile."' },
           { title: 'Why signals emerge late', text: 'Rare events, vulnerable subgroups, delayed effects, off-label use, errors, and interactions often become clearer after launch.' }
         ],
-        advancedTitle: 'More detail, still in simple language',
+        advancedTitle: 'Beyond the basics — how experts think about signals',
+        advancedSub: 'The concepts that separate textbook definitions from real-world signal awareness.',
         advancedCards: [
           { tag: 'Lifecycle', title: 'How a signal matures', text: 'The path is usually: raw data → possible signal → validated signal → assessed issue → action and follow-up.' },
+          { tag: 'Validation', title: 'Validation is a real gate', text: 'Before a detected signal gets full evaluation, it must pass validation: is the data real, complete, and not a duplicate or coding artifact? Many signals are closed at validation because they turn out to be duplicates, stimulated reporting, coding errors, or data-entry mistakes. Validation saves evaluation resources for genuine safety questions.' },
           { tag: 'Question style', title: 'Experts start with the right question', text: 'Instead of asking "Is this proven?", they ask "What exactly is changing, and how convincing is the evidence?"' },
           { tag: 'Scope', title: 'Signals are not only pharmacologic', text: 'They can also involve product quality, packaging confusion, device use problems, or medication errors that lead to harm.' }
         ],
@@ -1340,7 +1342,7 @@
         takeawayTitle: 'Methods used at detection stage',
         takeawayPoints: [
           'Medical review of individual cases and case series',
-          'Literature review, medication-error review, product-quality review, and important-event lists',
+          'Literature monitoring, medication-error review, product-quality review, and important-event lists',
           'Database screening such as disproportionality or trend review',
           'Subgroup analysis by age, sex, indication, country, route, dose, or formulation'
         ],
@@ -1350,6 +1352,9 @@
           { title: 'Detection is multi-source', text: 'Good teams combine cases, databases, literature, exposure context, quality complaints, and use-error information.' }
         ],
         advancedTitle: 'Signaling methods, algorithms, and tools',
+        advancedSub: 'How teams move from raw data to a flagged pair worth investigating.',
+        methodsSub: 'The reviewer\'s toolkit — each method answers a different kind of question.',
+        toolsSub: 'Where safety data lives and how it gets queried.',
         advancedCards: [
           { tag: 'Methods', title: 'Disproportionality screening', text: 'This asks whether a product-event pair is reported more often than expected in a reporting database. Common names include ROR, PRR, IC, and EBGM.' },
           { tag: 'Algorithms', title: 'Prioritization algorithms', text: 'Some systems rank possible signals using several ingredients at once: disproportionality, recency, geographic spread, and report quality.' },
@@ -1361,6 +1366,7 @@
           { title: 'Disproportionality metrics', text: 'ROR, PRR, IC, or EBGM help spot pairs that are reported more often than expected.' },
           { title: 'Trend review', text: 'Look for sudden growth after launch, after a formulation change, or after use expands to a new population.' },
           { title: 'Subgroup review', text: 'Signals may hide inside children, elderly patients, renal impairment, pregnancy, or a specific country or formulation.' },
+          { title: 'Literature monitoring', text: 'Published case reports, epidemiological studies, and regulatory authority communications can reveal signals not yet visible in your own database. GVP IX requires signal detection from all relevant sources including literature. Effective literature monitoring requires well-designed search strategies, consistent screening, and extraction of case-level data from publications.' },
           { title: 'Error and quality review', text: 'Product confusion, device misuse, container defects, or preparation errors can generate important safety signals.' }
         ],
         tools: [
@@ -1380,20 +1386,20 @@
         ],
         checkpoint: {
           label: 'Judgment Checkpoint',
-          vignette: 'You are a signal reviewer running quarterly disproportionality screening on your company\'s safety database for Product X (an oral antidiabetic). The algorithm flags "acute pancreatitis" with an ROR of 3.8 (95% CI: 1.9–7.6) based on 12 reports. However, the same screening also flags "headache" with an ROR of 1.4 (95% CI: 1.1–1.8) based on 340 reports. You have limited bandwidth this quarter. Your manager asks which flag you would prioritize for deeper review and why.',
+          vignette: 'You are a signal reviewer running quarterly disproportionality screening on your company\'s safety database for Product X (a DPP-4 inhibitor, an incretin-based oral antidiabetic). The algorithm flags "acute pancreatitis" with an ROR of 3.8 (95% CI: 1.9–7.6) based on 12 reports. However, the same screening also flags "headache" with an ROR of 1.4 (95% CI: 1.1–1.8) based on 340 reports. You have limited bandwidth this quarter. Your manager asks which flag you would prioritize for deeper review and why.',
           question: 'Which detection finding deserves priority review?',
           options: [
             'Headache — it has far more reports (340 vs 12) so it affects more patients.',
-            'Acute pancreatitis — despite fewer cases, it is a serious, clinically specific event with a known class-effect concern for antidiabetics, and the ROR is more striking.',
+            'Acute pancreatitis — despite fewer cases, it is a serious, clinically specific event with a known class-effect concern for incretin-based antidiabetics (DPP-4 inhibitors, GLP-1 agonists), and the ROR is more striking.',
             'Neither — the database cannot prove causation, so both should be ignored until clinical trial data confirms it.',
             'Both equally — any statistical flag must receive the same depth of review regardless of clinical context.'
           ],
           correct: 1,
           successTitle: 'Correct — well prioritized.',
-          successText: 'Pancreatitis is a designated medical event for some antidiabetic classes, carries serious clinical consequences, and shows a stronger signal-to-noise ratio. Headache, while common, is nonspecific and has a weak ROR. Detection is about identifying which clues deserve deeper investigation — clinical seriousness, specificity, and known class effects all matter alongside raw counts.',
+          successText: 'Pancreatitis is a designated medical event for incretin-based antidiabetic classes (DPP-4 inhibitors, GLP-1 receptor agonists), carries serious clinical consequences, and shows a stronger signal-to-noise ratio. Headache, while common, is nonspecific and has a weak ROR. Detection is about identifying which clues deserve deeper investigation — clinical seriousness, specificity, and known class effects all matter alongside raw counts.',
           failTitle: 'Reconsider your reasoning.',
-          failText: 'Detection prioritization depends on seriousness, clinical specificity, biological plausibility (class effects), and signal strength — not just report volume. A serious, specific event with strong disproportionality in a relevant drug class takes priority over a common, nonspecific symptom with a marginal score.',
-          explanation: 'This question tests the concept that signal detection is about prioritizing attention, not just flagging numbers. In real practice, reviewers must triage multiple flags by weighing seriousness, clinical specificity, biological plausibility (pancreatitis is a known concern for some antidiabetic classes), signal strength (ROR magnitude and confidence interval), and whether the event is on a designated medical events list. A non-specific symptom with hundreds of reports and a low ROR typically requires less urgent investigation than a serious, organ-specific event with a meaningful disproportionality score.'
+          failText: 'Detection prioritization depends on seriousness, clinical specificity, biological plausibility (class effects — pancreatitis is a recognized concern for incretin-based therapies specifically, not all antidiabetics), and signal strength — not just report volume. A serious, specific event with strong disproportionality in a relevant drug class takes priority over a common, nonspecific symptom with a marginal score.',
+          explanation: 'This question tests the concept that signal detection is about prioritizing attention, not just flagging numbers. In real practice, reviewers must triage multiple flags by weighing seriousness, clinical specificity, biological plausibility (pancreatitis is a known concern specifically for incretin-based antidiabetic classes such as DPP-4 inhibitors and GLP-1 receptor agonists — not for metformin, sulfonylureas, or SGLT2 inhibitors), signal strength (ROR magnitude and confidence interval), and whether the event is on a designated medical events list. A non-specific symptom with hundreds of reports and a low ROR typically requires less urgent investigation than a serious, organ-specific event with a meaningful disproportionality score.'
         }
       },
       {
@@ -1419,9 +1425,12 @@
         concepts: [
           { title: 'Chronology is central', text: 'If the event happens before exposure or far outside a plausible window, the signal weakens.' },
           { title: 'Confounding matters', text: 'The disease itself, other medicines, or baseline risk may explain the pattern. Good evaluation actively tests those alternatives.' },
-          { title: 'Clinical coherence matters', text: 'A cluster becomes more convincing when cases look medically similar and fit a plausible mechanism.' }
+          { title: 'Clinical coherence matters', text: 'A cluster becomes more convincing when cases look medically similar and fit a plausible mechanism.' },
+          { title: 'Rechallenge is the strongest single test', text: 'A positive rechallenge (event recurs on re-exposure) is the most powerful piece of individual causality evidence. It is rarely available because re-exposure is often unethical, but when present it substantially strengthens the signal. Do not confuse rechallenge with dechallenge — dechallenge is improvement after stopping, rechallenge is recurrence after restarting.' }
         ],
-        advancedTitle: 'Evaluation techniques in simple terms',
+        advancedTitle: 'Weighing the evidence — evaluation techniques',
+        advancedSub: 'How reviewers test whether a detected clue really holds up under scrutiny.',
+        methodsSub: 'Six lenses for testing signal credibility — each probes a different dimension of the evidence.',
         advancedCards: [
           { tag: 'Chronology', title: 'Time-to-onset, dechallenge, rechallenge', text: 'These help answer: did the event appear after exposure, improve after stopping, or return after restarting?' },
           { tag: 'Pattern review', title: 'Case-series thinking', text: 'Experts compare cases side by side to see whether the same phenotype, onset window, severity, or susceptible group keeps recurring.' },
@@ -1487,7 +1496,10 @@
           { title: 'Action should fit certainty', text: 'A weak hint may justify targeted follow-up. A strong serious signal may justify rapid communication or label change.' },
           { title: 'Tracking closes the loop', text: 'A good safety action is not finished when the memo is sent. Teams need to watch whether harm actually falls.' }
         ],
-        advancedTitle: 'Action and tracking techniques',
+        advancedTitle: 'From decision to impact — action and follow-through',
+        advancedSub: 'How safety teams translate evaluation conclusions into patient-protective measures.',
+        methodsSub: 'Turning a signal assessment into a concrete, trackable response plan.',
+        toolsSub: 'Systems that keep signal actions organised, communicated, and measurable.',
         advancedCards: [
           { tag: 'Response', title: 'Possible actions', text: 'These can range from watchful monitoring to product information changes, DHPC-style communication, updated risk plans, training, or design changes.' },
           { tag: 'Follow-up', title: 'Targeted follow-up matters', text: 'Sometimes the best next step is not a public action yet. It is getting the missing data that will sharpen the evaluation.' },
@@ -1558,7 +1570,8 @@
           { title: 'Scenario B', text: 'Several serious liver cases appear early after launch. Think: case-series review plus chronology and confounding assessment.' },
           { title: 'Scenario C', text: 'Repeated overdoses follow confusing pack presentation. Think: error-review, product-design action, and tracking.' }
         ],
-        advancedTitle: 'Methods-to-scenario matching',
+        advancedTitle: 'Matching methods to the problem in front of you',
+        advancedSub: 'The skill that ties earlier stages together — choosing the right approach for each situation.',
         advancedCards: [
           { tag: 'Matching', title: 'Pick the tool that fits', text: 'New reaction? Start with case review and disproportionality support. Subgroup issue? Stratified review matters. Error issue? Workflow and design review matter most.' },
           { tag: 'Judgment', title: 'Use methods as lenses', text: 'Different methods answer different questions. No single method answers every signal question well.' },
@@ -1603,9 +1616,9 @@
       },
       disproportionality: {
         title: 'Disproportionality screening',
-        text: 'Asks whether a product-event pair is reported more often than expected. Common names include ROR, PRR, IC, and EBGM.',
+        text: 'Asks whether a product-event pair is reported more often than expected. The core concept is a 2×2 table: reports for this drug with this event vs. reports for this drug with other events vs. reports for other drugs with this event vs. reports for other drugs with other events. From this table, metrics like PRR (ratio of proportions) and ROR (odds ratio of reporting) are calculated. IC and EBGM use Bayesian shrinkage to stabilise estimates when case counts are small. Higher values suggest the pair is reported more than expected — but this is a measure of reporting disproportionality, not causation.',
         why: 'Best for scanning large databases and prioritizing what deserves a closer look.',
-        caution: 'Useful for hypothesis generation only. Confounding and coding choices can distort results.'
+        caution: 'Useful for hypothesis generation only. Confounding, notoriety bias, stimulated reporting, and coding choices can all distort results. A high score does not prove causation, and a low score does not prove safety.'
       },
       subgroup: {
         title: 'Subgroup and stratified review',
@@ -1641,8 +1654,21 @@
         detect: 'Use subgroup review, case-series review, and severity comparison. This is not only "rash count up." It is a change in character and population.',
         evaluate: 'Ask whether timing fits, whether phenotype is consistent, and whether pediatric co-factors explain the pattern.',
         action: 'If credible and clinically important, consider subgroup-specific communication, label refinement, and monitoring in pediatrics.',
-        methods: ['Subgroup review', 'Case-series review', 'Chronology review'],
-        tools: ['MedDRA grouping', 'Line listing', 'Signal tracker']
+        stepMethods: {
+          detect: ['Age-stratified subgroup review', 'Case-series review for phenotype shift', 'Severity trend comparison vs historical baseline'],
+          evaluate: ['Chronology assessment (pediatric PK context)', 'Phenotype consistency across cases (SJS vs common rash)', 'Alternative-cause review (co-medications, infections)'],
+          action: ['Pediatric-specific SmPC §4.4/4.8 update', 'Targeted DHPC to pediatricians', 'Quarterly pediatric case tracking']
+        },
+        stepTools: {
+          detect: ['MedDRA SMQ grouping', 'Age-stratified line listing', 'Safety database query tools'],
+          evaluate: ['WHO-UMC causality assessment', 'Narrative medical review', 'Published pediatric ADR literature'],
+          action: ['Labeling change workflow', 'DHPC distribution tracker', 'Post-action trend dashboard']
+        },
+        stepKeyPoints: {
+          detect: 'A "known" risk can hide a new signal when severity or population shifts. Subgroup stratification is the key detection method here.',
+          evaluate: 'The central question is whether these pediatric cases share a distinct phenotype (SJS/mucosal involvement) that differs from the labeled "common rash."',
+          action: 'Pediatric populations need age-appropriate communication. The action should target prescribers who treat children specifically, not just a generic safety update.'
+        }
       },
       liver: {
         title: 'Possible new liver injury signal',
@@ -1650,8 +1676,21 @@
         detect: 'Use case-series review plus disproportionality support. New, serious, unlabeled events deserve close attention.',
         evaluate: 'Look at onset window, dechallenge, alternative causes, baseline liver disease, and lab pattern consistency.',
         action: 'If evidence strengthens, move toward communication or label action. If still uncertain, request targeted follow-up.',
-        methods: ['Case-series review', 'Disproportionality support', 'Alternative-cause review'],
-        tools: ['FAERS/EVDAS style query', 'Narrative review', 'Follow-up questions']
+        stepMethods: {
+          detect: ['Case-series review for clinical coherence', 'Disproportionality screening (ROR/PRR)', 'DME list cross-check'],
+          evaluate: ['Dechallenge/rechallenge analysis', 'Hy\'s Law assessment (ALT + bilirubin)', 'RUCAM scoring for hepatotoxicity'],
+          action: ['SmPC update with monitoring guidance', 'DHPC with LFT monitoring schedule', 'Enhanced pharmacovigilance plan']
+        },
+        stepTools: {
+          detect: ['FAERS/EVDAS query', 'Safety database line listing', 'Literature search (published DILI cases)'],
+          evaluate: ['Narrative medical review template', 'Causality assessment framework', 'Hepatologist consultation pathway'],
+          action: ['Labeling and communication workflow', 'Targeted follow-up forms', 'Quarterly liver-case trend review']
+        },
+        stepKeyPoints: {
+          detect: 'For serious unlabeled organ-specific events, even a small number of clinically coherent cases should trigger closer review. Do not wait for high counts.',
+          evaluate: 'Hy\'s Law (ALT >3× ULN + bilirubin >2× ULN) is a critical threshold in hepatotoxicity evaluation. Dechallenge data is often the strongest individual evidence dimension.',
+          action: 'Liver monitoring protocols should match the observed onset window. If cases cluster at 3–8 weeks, schedule LFTs at baseline, week 4, and week 8.'
+        }
       },
       error: {
         title: 'Medication-error pattern from packaging confusion',
@@ -1659,8 +1698,21 @@
         detect: 'Use error-case review, trend review, and packaging history. The signal may not look like a classic pharmacologic toxicity signal.',
         evaluate: 'Confirm the mechanism by checking product presentation, workflow steps, and repeatability of the same confusion pattern.',
         action: 'Prioritize packaging redesign, communication, and post-change monitoring rather than waiting for more cases.',
-        methods: ['Error review', 'Trend review', 'Root-cause logic'],
-        tools: ['Complaint data', 'Safety cases', 'Tracking dashboard']
+        stepMethods: {
+          detect: ['Error-case narrative review', 'Trend review around packaging change date', 'Complaint data cross-reference'],
+          evaluate: ['Human-factors root-cause analysis', 'Packaging usability assessment', 'Mechanism repeatability check'],
+          action: ['Packaging/blister redesign', 'Prescriber and pharmacy training materials', 'Post-redesign error-rate monitoring']
+        },
+        stepTools: {
+          detect: ['Product complaint database', 'Safety case database (filter: medication error)', 'Change-control records for packaging'],
+          evaluate: ['Packaging samples and mock-ups', 'User confusion testing', 'Root-cause analysis template'],
+          action: ['Design change workflow', 'Communication to dispensers/pharmacists', 'Error-rate tracking dashboard']
+        },
+        stepKeyPoints: {
+          detect: 'Error signals may not appear in disproportionality screening. Trend review around the packaging change date is more revealing than ROR.',
+          evaluate: 'The mechanism here is human-factors, not pharmacologic. Ask whether different users independently make the same mistake — that confirms a design problem.',
+          action: 'The most direct protection is fixing the design. Label changes and monitoring are supplements, not substitutes, when the root cause is a usable product defect.'
+        }
       }
     };
 
@@ -1674,6 +1726,7 @@
         },
         advancedCards: {
           'How a signal matures': 'Think of it like a detective board: one clue becomes a case file, then a reviewed case, then an action plan.',
+          'Validation is a real gate': 'Before deploying the fire brigade, check that the smoke alarm is not caused by burnt toast or a low battery. Validation separates real alarms from false ones.',
           'Experts start with the right question': 'Good reviewers act like a mechanic hearing a new noise. They ask "what changed, when, and under what conditions?"',
           'Signals are not only pharmacologic': 'Safety problems are not always about the chemical itself. Sometimes the issue is more like a confusing road sign that causes accidents.'
         },
@@ -1713,6 +1766,7 @@
           'Disproportionality metrics': 'Think of these as a spotlight, not a verdict. They brighten a corner so you know where to look.',
           'Trend review': 'Like watching a dashboard warning light over time rather than staring at one moment.',
           'Subgroup review': 'A hidden problem in children or elderly is like a leak that appears only on one floor.',
+          'Literature monitoring': 'Like reading the neighborhood newsletter alongside your own security cameras — someone else may have seen what you missed.',
           'Error and quality review': 'Sometimes the issue is not the medicine acting badly but the system using it badly.'
         },
         tools: {
@@ -1744,7 +1798,8 @@
         concepts: {
           'Chronology is central': 'If a light bulb flickers before you switch it on, the switch is probably not the cause.',
           'Confounding matters': 'Like trying to blame one ingredient for a bad meal when three others were also added.',
-          'Clinical coherence matters': 'A true pattern is like hearing the same tune played by different instruments.'
+          'Clinical coherence matters': 'A true pattern is like hearing the same tune played by different instruments.',
+          'Rechallenge is the strongest single test': 'Like turning a suspect light switch off, seeing the flickering stop, then turning it on again and seeing the flickering return. That sequence is hard to argue with.'
         },
         advancedCards: {
           'Time-to-onset, dechallenge, rechallenge': 'Like stopping a suspect app, seeing the phone improve, then watching the problem return when reinstalled.',
@@ -1877,7 +1932,7 @@
       { id:'C', rank:2, title:'QT Prolongation — High Priority', reason:'Unlabeled DME with class-effect concern. All serious. The CYP3A4 interaction pattern suggests a drug-interaction signal. Regulatory expectation to investigate promptly given the cardiac safety implications.' },
       { id:'E', rank:3, title:'ILD — High Priority', reason:'5 all-serious cases including 1 fatal. Unlabeled, DME, class effect for kinase inhibitors. Elderly subgroup concentration and plausible onset make this clinically coherent despite low case count.' },
       { id:'F', rank:4, title:'Rash (Severe Phenotype) — Moderate Priority', reason:'While rash is labeled, the recent bullous cases represent a phenotype shift. The immunotherapy co-medication subgroup and severity escalation constitute a potential new signal within a known risk.' },
-      { id:'H', rank:5, title:'Medication Error — Moderate Priority', reason:'Operational signal with a clear, fixable mechanism (blister design). Preventable harm to 4 patients including 3 with liver toxicity. Actionable design problem that won\'t be caught by disproportionality alone.' }
+      { id:'H', rank:5, title:'Medication Error — Moderate Priority', reason:'Operational signal with a clear, fixable mechanism (blister design). Preventable harm to 4 patients including 3 with liver toxicity. Actionable design problem that won\'t be caught by disproportionality alone. Note: the ROR confidence interval (0.8–5.4) crosses 1.0, meaning the disproportionality is not statistically significant — a standard SDR algorithm might not flag this at all. This illustrates why clinical and operational review must complement statistical screening.' }
     ];
 
     // ── Evaluation Challenge Data ──
@@ -1898,11 +1953,20 @@
         condition: s => s >= 40 && s < 65,
         title: 'Possible signal — gather more evidence',
         recommendation: 'Based on the evidence profile (mixed strength across dimensions), this signal is possible but not yet credible enough for definitive action. Recommended action: initiate targeted follow-up to improve case quality, request additional clinical detail on dechallenge and alternative causes, and schedule a focused review in 3 months.',
-        agreeCorrect: false,
+        get agreeCorrect() {
+          // If seriousness is high, agreeing with "just gather data" is wrong — precautionary action needed.
+          // If seriousness is low/moderate, agreeing is correct — data-gathering is proportionate.
+          return visualState.evaluation.seriousness < 60;
+        },
         disagreeCorrectIndex: 0,
-        agreeReason: 'While the overall score is moderate, consider whether the individual dimension pattern changes the picture. If seriousness is high but other dimensions are mid-range, purely gathering data may underprotect patients. Check whether seriousness alone justifies at least enhanced surveillance.',
+        get agreeReason() {
+          if (visualState.evaluation.seriousness >= 60) {
+            return 'Although the overall score is moderate, the seriousness dimension is high. When outcomes are severe or irreversible, purely gathering data may underprotect patients. Even with moderate overall credibility, high seriousness justifies at least precautionary communication or enhanced surveillance alongside data collection.';
+          }
+          return 'With moderate overall evidence and low-to-moderate seriousness, the proportionate response is targeted data improvement and a scheduled follow-up review. Acting more aggressively would be disproportionate to the current evidence profile.';
+        },
         disagreeReasons: [
-          { text: 'If seriousness is high, we should add at least a precautionary communication — not just data-gathering.', correct: true, feedback: 'Correct. When seriousness is high, even moderate overall credibility may warrant precautionary action. The seriousness dimension should carry extra weight in action decisions because irreversible outcomes cannot wait for perfect evidence.' },
+          { text: 'If seriousness is high, we should add at least a precautionary communication — not just data-gathering.', get correct() { return visualState.evaluation.seriousness >= 60; }, get feedback() { return visualState.evaluation.seriousness >= 60 ? 'Correct. When seriousness is high, even moderate overall credibility may warrant precautionary action. The seriousness dimension should carry extra weight in action decisions because irreversible outcomes cannot wait for perfect evidence.' : 'In this evidence profile, seriousness is not elevated enough to override the moderate overall score. Data-gathering is proportionate here. If you increase the seriousness slider above 60, this objection becomes valid.'; } },
           { text: 'We should immediately update the label — any possible signal deserves label action.', correct: false, feedback: 'Label action requires sufficient evidence to support the causal statement. A "possible" signal with mixed evidence dimensions doesn\'t yet meet that threshold. Precautionary action (e.g., enhanced monitoring) is different from definitive label changes.' },
           { text: 'We should close this signal — moderate scores mean it\'s probably noise.', correct: false, feedback: 'A moderate score means the evidence is inconclusive, not that it\'s noise. Closing a signal requires actively ruling it out, not just failing to confirm it. The correct approach is targeted investigation.' }
         ]
@@ -1937,8 +2001,8 @@
       ],
       evaluation: [
         { key: 'GVP IX §IX.C.3', val: 'Signal assessment should evaluate strength of evidence, biological plausibility, temporal relationship, and clinical relevance.' },
-        { key: 'Bradford Hill 1965', val: 'Classic criteria: strength, consistency, specificity, temporality, biological gradient, plausibility, coherence, experiment, analogy.' },
-        { key: 'ICH E2C(R2) §5.4', val: 'Evaluation of individual cases includes assessment of positive dechallenge/rechallenge, alternative causes, and temporal relationship.' },
+        { key: 'Bradford Hill 1965', val: 'Classic epidemiological criteria (not a regulatory document, but widely used to inform regulatory causality assessment): strength, consistency, specificity, temporality, biological gradient, plausibility, coherence, experiment, analogy.' },
+        { key: 'ICH E2D §3.3', val: 'Individual case assessment should consider positive dechallenge/rechallenge, temporal relationship, alternative causes, and the totality of clinical information including concomitant medication and underlying disease.' },
         { key: 'GVP IX §IX.C.3.2', val: 'The assessment should consider the totality of evidence, not any single criterion in isolation.' }
       ],
       action: [
@@ -1972,7 +2036,7 @@
         },
         {
           id: 1,
-          narrative: 'Your emergency review reveals: 12 total cases, <strong>10/12 serious</strong>, <strong>2 fatal</strong>, onset <strong>3–8 weeks</strong> in 10/12 cases, <strong>positive dechallenge in 7/8</strong> where the drug was stopped. However, <strong>6/12 patients were on concomitant paracetamol/acetaminophen</strong> and <strong>4/12 had pre-existing mild hepatic steatosis</strong>. Your medical advisor says: "The confounders are too strong — we can\'t call this a signal yet."',
+          narrative: 'Your emergency review reveals: 12 total cases, <strong>10/12 serious</strong>, <strong>2 fatal</strong>, onset <strong>3–8 weeks</strong> in 10/12 cases, <strong>positive dechallenge in 7/8</strong> where the drug was stopped. However, <strong>6/12 patients were on concomitant paracetamol/acetaminophen at therapeutic doses (≤3g/day)</strong> and <strong>4/12 had pre-existing mild hepatic steatosis</strong>. Your medical advisor says: "The confounders are too strong — we can\'t call this a signal yet."',
           question: 'How do you respond to the medical advisor?',
           options: [
             { text: 'Agree — with this level of confounding, we should classify this as "possible" only and continue monitoring.', quality: 'bad', consequence: 'Dangerous underreaction. Paracetamol at therapeutic doses and mild steatosis don\'t typically cause fulminant hepatic failure. The 7/8 positive dechallenge rate, consistent onset window, and 2 fatalities overwhelm the confounders. You\'ve lost 24 hours.', points: 0 },
@@ -2043,6 +2107,11 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
           { text: 'No — single cases cannot support signals.', correct: false },
           { text: 'Possibly — but we need rechallenge data to be sure.', correct: false },
           { text: 'Yes — plausible onset, positive dechallenge, low confounding, serious outcome, and consistent with pattern from other cases.', correct: true }
+        ]},
+        { q: 'Does this case meet Hy\'s Law criteria?', options: [
+          { text: 'No — ALT must be above 10× ULN for Hy\'s Law.', correct: false },
+          { text: 'Yes — ALT >3× ULN (8×) and total bilirubin >2× ULN (2.1×), with no biliary obstruction or other cause of bilirubin rise. This indicates risk of severe drug-induced liver injury.', correct: true },
+          { text: 'Cannot assess — Hy\'s Law requires alkaline phosphatase values.', correct: false }
         ]}
       ]
     };
@@ -2361,7 +2430,7 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
           ${Object.keys(appState.icsrAnswers).length === ex.questions.length ? `
             <div class="result-box" style="margin-top:14px">
               <p style="margin:0"><strong>Score: ${ex.questions.filter((q,i) => q.options[appState.icsrAnswers[i]]?.correct).length}/${ex.questions.length} correct.</strong> 
-              This case demonstrates a well-documented ICSR that supports the hepatotoxicity signal: plausible onset, positive dechallenge, low confounding, and consistency with the broader case series pattern.</p>
+              This case demonstrates a well-documented ICSR that supports the hepatotoxicity signal: plausible onset, positive dechallenge, low confounding, and consistency with the broader case series pattern. Notably, the case also meets Hy\'s Law criteria (ALT 8× ULN + bilirubin 2.1× ULN), which is an important prognostic indicator of severe DILI risk — recognising this is a key clinical skill in hepatotoxicity signal evaluation.</p>
             </div>
           ` : ''}
         </div>
@@ -2536,7 +2605,7 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
 
           <!-- ADVANCED -->
           ${stage.advancedCards?.length ? `
-            <div class="section-divider"><h3>${stage.advancedTitle}</h3><p>Closer to real practice, still in plain language.</p></div>
+            <div class="section-divider"><h3>${stage.advancedTitle}</h3><p>${stage.advancedSub || ''}</p></div>
             <div class="method-row">
               ${stage.advancedCards.map(a => `
                 <div class="method-item">
@@ -2560,7 +2629,7 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
 
           <!-- METHODS -->
           ${stage.methods?.length ? `
-            <div class="section-divider"><h3>Methods and techniques</h3><p>Building blocks reviewers use in practice.</p></div>
+            <div class="section-divider"><h3>Methods and techniques</h3><p>${stage.methodsSub || ''}</p></div>
             <div class="method-row">
               ${stage.methods.map(m => `
                 <div class="method-item">
@@ -2574,7 +2643,7 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
 
           <!-- TOOLS -->
           ${stage.tools?.length ? `
-            <div class="section-divider"><h3>Common tools and data systems</h3><p>Where data is stored, queried, coded, or followed over time.</p></div>
+            <div class="section-divider"><h3>Common tools and data systems</h3><p>${stage.toolsSub || ''}</p></div>
             <div class="tool-row-grid">
               ${stage.tools.map(t => `
                 <div class="tool-item">
@@ -2878,7 +2947,7 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
           <h5>${gradeTitle}</h5>
           <p><strong>Your selections:</strong> ${picked}</p>
           ${missedText}${lowText}
-          <p style="margin-top:8px"><strong>Expert ranking logic:</strong> Prioritize by (1) unlabeled status + seriousness, (2) DME/class-effect relevance, (3) signal strength and clinical coherence, (4) phenotype shifts within known risks, (5) preventable operational mechanisms. Case volume alone is never the primary driver.</p>
+          <p style="margin-top:8px"><strong>Expert ranking logic:</strong> Prioritize by (1) unlabeled status + seriousness, (2) DME/class-effect relevance, (3) signal strength and clinical coherence, (4) phenotype shifts within known risks, (5) preventable operational mechanisms. Case volume alone is never the primary driver. Also note: a confidence interval crossing 1.0 (as in Row H) means the disproportionality is not statistically significant — but the signal can still be clinically important if the mechanism is clear and actionable.</p>
           <div class="sdr-rationale-row">
             ${sdrExpertRationale.slice(0, 3).map(r => `
               <div class="sdr-rationale-card">
@@ -3057,13 +3126,14 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
             <span class="pill pill-accent">Interactive Visual</span>
             <h4>Evaluation Weight Explorer</h4>
             <p>Adjust evidence dimensions to model different signal profiles, then challenge the system's recommendation below.</p>
+            <p style="font-size:11px;color:var(--warn);margin-top:4px;font-weight:600">⚠ Teaching model only — This weighted scoring is a pedagogical simplification to illustrate how evidence dimensions interact. It is not a validated instrument and should not be used in real regulatory assessments. Real signal evaluation uses structured clinical judgment, not numerical scoring.</p>
           </div>
           <div class="visual-body">
             <div class="interactive-card">
               <h4>Evidence dimensions</h4>
-              <p style="margin-bottom:10px">Drag each slider to reflect a hypothetical signal's evidence strength.</p>
+              <p style="margin-bottom:10px">Drag each slider to reflect a hypothetical signal's evidence strength. Imagine evaluating the Veritanib hepatotoxicity signal — or any serious drug-event pair — and adjust each dimension to model the evidence you see.</p>
               <div class="controls-grid" id="evaluationControls">
-                ${[['chronology','Chronology'],['dechallenge','Dechallenge'],['plausibility','Plausibility'],['confounding','Low confounding'],['consistency','Consistency'],['seriousness','Seriousness']].map(([k,l]) => `
+                ${[['chronology','Chronology'],['dechallenge','Dechallenge'],['plausibility','Plausibility'],['confounding','Confounders excluded'],['consistency','Consistency'],['seriousness','Seriousness']].map(([k,l]) => `
                   <label class="field">${l}: <strong id="evalValue-${k}">${e[k]}</strong>
                     <input type="range" min="0" max="100" value="${e[k]}" data-eval="${k}" />
                   </label>
@@ -3081,7 +3151,7 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
                 <div class="meter-labels"><span>Weak</span><span>Possible</span><span>Credible</span></div>
               </div>
               <div style="margin-top:12px">
-                ${[['chronology','Chronology',e.chronology],['dechallenge','Dechallenge',e.dechallenge],['plausibility','Plausibility',e.plausibility],['confounding','Low confounding',e.confounding],['consistency','Consistency',e.consistency],['seriousness','Seriousness',e.seriousness]].map(([k,l,v]) => `
+                ${[['chronology','Chronology',e.chronology],['dechallenge','Dechallenge',e.dechallenge],['plausibility','Plausibility',e.plausibility],['confounding','Confounders excluded',e.confounding],['consistency','Consistency',e.consistency],['seriousness','Seriousness',e.seriousness]].map(([k,l,v]) => `
                   <div class="signal-bar">
                     <span>${l}</span>
                     <div class="bar-track"><div class="bar-fill" id="evaluationBar-${k}" style="width:${v}%"></div></div>
@@ -3158,8 +3228,10 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
       const cells = [
         { id: 'low-low', label: 'Low + Low', title: 'Monitor and clarify', text: 'Watch closely, request info, avoid overreaction.' },
         { id: 'low-moderate', label: 'Low + Moderate', title: 'Targeted follow-up', text: 'Refine picture with focused review.' },
+        { id: 'low-high', label: 'Low + High', title: 'Routine risk management', text: 'Well-characterised minor risk — label and monitor.' },
         { id: 'high-low', label: 'High + Low', title: 'Escalate attention', text: 'Urgency rises even with incomplete certainty.' },
-        { id: 'high-moderate', label: 'High + Moderate', title: 'Active response', text: 'Stronger communication, label work, or risk minimization.' }
+        { id: 'high-moderate', label: 'High + Moderate', title: 'Active response', text: 'Stronger communication, label work, or risk minimization.' },
+        { id: 'high-high', label: 'High + High', title: 'Urgent regulatory action', text: 'Confirmed serious risk — full response with possible restrictions.' }
       ];
 
       return `
@@ -3180,6 +3252,7 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
                 <label class="field">Evidence certainty<select data-action="certainty">
                   <option value="low" ${visualState.action.certainty==='low'?'selected':''}>Low</option>
                   <option value="moderate" ${visualState.action.certainty==='moderate'?'selected':''}>Moderate</option>
+                  <option value="high" ${visualState.action.certainty==='high'?'selected':''}>High</option>
                 </select></label>
                 <label class="field">Mechanism of harm<select data-action="mechanism">
                   <option value="clinical" ${visualState.action.mechanism==='clinical'?'selected':''}>Clinical / pharmacologic</option>
@@ -3212,6 +3285,30 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
     function getActionDecision() {
       const { seriousness, certainty, mechanism } = visualState.action;
       const isError = mechanism === 'error';
+      if (seriousness === 'high' && certainty === 'high') {
+        return {
+          title: isError ? 'Urgent design intervention with regulatory coordination' : 'Urgent safety restriction or regulatory referral',
+          mechanismFocus: isError ? 'Immediate design fix, possible batch recall, and mandatory reporting' : 'Confirmed serious risk — restrict, communicate, and monitor intensively',
+          reason: isError ? 'A well-established, serious use-error problem demands immediate corrective action: packaging/device redesign, possible product recall of affected batches, and regulatory notification.' : 'A confirmed serious risk with strong evidence may warrant urgent safety restrictions (e.g., restricted prescribing, contraindication in vulnerable subgroups), Article 20 referral, DHPC, and RMP update with additional risk minimisation measures.',
+          track: isError ? 'Monitor whether the corrective action eliminates the error pattern. Track complaints, error reports, and patient outcomes post-redesign.' : 'Monitor whether the restriction reduces serious outcomes. Track compliance with new prescribing conditions and reassess benefit-risk periodically.',
+          examples: [
+            { title: 'Possible response', text: isError ? 'Batch recall, mandatory redesign, healthcare professional alert, post-correction surveillance' : 'Contraindication update, restricted access programme, Article 20 referral, mandatory PASS' },
+            { title: 'What not to do', text: 'Delay action because the product is commercially important. High certainty + high seriousness demands action regardless of commercial considerations.' }
+          ]
+        };
+      }
+      if (seriousness === 'low' && certainty === 'high') {
+        return {
+          title: isError ? 'Routine design improvement' : 'Routine labeling and risk communication',
+          mechanismFocus: isError ? 'Fix the design systematically as part of product lifecycle' : 'Well-characterised minor risk — ensure it is adequately communicated',
+          reason: isError ? 'The error mechanism is well-understood and the impact is manageable. A systematic design improvement, updated instructions, and routine monitoring are proportionate.' : 'The risk is confirmed but not serious. Appropriate labeling (SmPC §4.8), patient information leaflet update, and routine pharmacovigilance are proportionate. No urgent action is required.',
+          track: isError ? 'Monitor whether the design improvement reduces error frequency over time.' : 'Track as part of routine signal monitoring and include in next PBRER.',
+          examples: [
+            { title: 'Possible response', text: isError ? 'Improved instructions, minor design adjustment, routine monitoring' : 'SmPC/PIL update, routine monitoring, inclusion in PBRER' },
+            { title: 'What not to do', text: 'Over-escalate a well-understood minor issue. Proportionality means matching action to both seriousness and certainty.' }
+          ]
+        };
+      }
       if (seriousness === 'high' && certainty === 'moderate') {
         return {
           title: isError ? 'Active design-focused intervention' : 'Active safety response',
@@ -3294,10 +3391,10 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
               <h4 style="margin-top:10px">${item.title}</h4>
               <p>${stepMap[visualState.scenarioStep]}</p>
               <div class="metric-grid">
-                <div class="metric-card"><h4>Useful methods</h4><ul>${item.methods.map(m=>`<li>${m}</li>`).join('')}</ul></div>
-                <div class="metric-card"><h4>Likely tools</h4><ul>${item.tools.map(t=>`<li>${t}</li>`).join('')}</ul></div>
+                <div class="metric-card"><h4>Useful methods</h4><ul>${(item.stepMethods[visualState.scenarioStep] || []).map(m=>`<li>${m}</li>`).join('')}</ul></div>
+                <div class="metric-card"><h4>Likely tools</h4><ul>${(item.stepTools[visualState.scenarioStep] || []).map(t=>`<li>${t}</li>`).join('')}</ul></div>
               </div>
-              <div class="result-box" style="margin-top:10px"><p style="margin:0"><strong>Key point:</strong> The best method depends on the nature of the problem.</p></div>
+              <div class="result-box" style="margin-top:10px"><p style="margin:0"><strong>Key point:</strong> ${item.stepKeyPoints[visualState.scenarioStep] || 'The best method depends on the nature of the problem.'}</p></div>
             </div>
           </div>
         </div>
