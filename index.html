@@ -1151,10 +1151,107 @@
 
     /* ── PRINT ── */
     @media print {
-      .topnav, .module-nav, .sidebar, .hero-banner, .reset-btn, .sdr-submit-btn, .sdr-reset-btn, .branch-next-btn, .next-stage-btn, .reveal-btn, .comp-export-btn { display: none !important; }
+      .topnav, .module-nav, .sidebar, .hero-banner, .reset-btn, .sdr-submit-btn, .sdr-reset-btn, .branch-next-btn, .next-stage-btn, .reveal-btn, .comp-export-btn, .deep-dive-toggle { display: none !important; }
       .main-grid { grid-template-columns: 1fr !important; }
       .stage-card { box-shadow: none !important; border: 1px solid #ccc !important; }
       body { background: #fff !important; }
+      .deep-dive-body { display: block !important; max-height: none !important; }
+    }
+
+    /* ── COLLAPSIBLE DEEP DIVES ── */
+    .deep-dive {
+      margin: 20px 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-soft);
+      overflow: hidden;
+    }
+    .deep-dive-toggle {
+      font: inherit; font-size: 14px; font-weight: 700;
+      width: 100%; text-align: left;
+      padding: 14px 18px;
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; gap: 10px;
+      color: var(--text); transition: 0.12s;
+    }
+    .deep-dive-toggle:hover { background: rgba(0,0,0,0.02); }
+    .deep-dive-toggle .dd-chevron {
+      font-size: 12px; color: var(--muted);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .deep-dive.open .dd-chevron { transform: rotate(90deg); }
+    .deep-dive-toggle .dd-label { flex: 1; }
+    .deep-dive-toggle .dd-hint {
+      font-size: 11px; font-weight: 600;
+      color: var(--muted); letter-spacing: 0.03em;
+    }
+    .deep-dive-body {
+      display: none;
+      padding: 0 18px 18px;
+    }
+    .deep-dive.open .deep-dive-body { display: block; }
+
+    .lesson-flow-note {
+      font-size: 12px; color: var(--muted);
+      padding: 10px 14px; border-radius: 8px;
+      background: var(--panel-muted); border: 1px solid var(--line);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .lesson-flow-note strong { color: var(--text); }
+
+    /* ── SDR COMPACT CARDS (mobile) ── */
+    .sdr-card-grid { display: none; }
+    @media (max-width: 860px) {
+      .sdr-table-wrap { display: none; }
+      .sdr-card-grid { display: grid; gap: 10px; margin-top: 14px; }
+      .sdr-card {
+        border: 1px solid var(--line); border-radius: 12px;
+        padding: 14px; background: #fff; position: relative;
+        transition: 0.12s;
+      }
+      .sdr-card.sdr-selected { background: var(--accent-soft); border-color: rgba(30,58,95,0.25); }
+      .sdr-card.sdr-correct { background: var(--good-soft); border-color: #a0c8b0; }
+      .sdr-card.sdr-missed { background: var(--warn-soft); border-color: #ddc490; }
+      .sdr-card-header {
+        display: flex; align-items: center; gap: 10px;
+        margin-bottom: 8px;
+      }
+      .sdr-card-header .sdr-card-id {
+        font-size: 14px; font-weight: 800; color: var(--accent);
+        width: 28px; height: 28px; border-radius: 8px;
+        display: grid; place-items: center;
+        background: var(--accent-soft); flex-shrink: 0;
+      }
+      .sdr-card-header .sdr-card-event {
+        font-size: 14px; font-weight: 700; flex: 1;
+      }
+      .sdr-card-header .sdr-card-event small {
+        display: block; font-size: 11px; color: var(--muted); font-weight: 400;
+      }
+      .sdr-card-metrics {
+        display: grid; grid-template-columns: 1fr 1fr 1fr;
+        gap: 6px; margin: 8px 0;
+      }
+      .sdr-card-metric {
+        font-size: 11px; color: var(--muted);
+        padding: 6px 8px; border-radius: 6px;
+        background: var(--panel-muted); text-align: center;
+      }
+      .sdr-card-metric strong {
+        display: block; font-size: 14px; color: var(--text);
+      }
+      .sdr-card-flags { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0; }
+      .sdr-card-context {
+        font-size: 11px; color: var(--muted);
+        padding: 8px; border-radius: 6px;
+        background: var(--panel-soft); border: 1px solid var(--line);
+        margin-top: 6px;
+      }
+      .sdr-card-pick {
+        position: absolute; top: 12px; right: 12px;
+      }
     }
 
     /* ── RESPONSIVE ── */
@@ -1713,6 +1810,50 @@
           evaluate: 'The mechanism here is human-factors, not pharmacologic. Ask whether different users independently make the same mistake — that confirms a design problem.',
           action: 'The most direct protection is fixing the design. Label changes and monitoring are supplements, not substitutes, when the root cause is a usable product defect.'
         }
+      },
+      anticoag: {
+        title: 'Slow-building bleeding signal in chronic anticoagulant use',
+        summary: 'GI bleeding reports rise gradually over 3 years for an oral anticoagulant, concentrated in elderly patients on concomitant NSAIDs or antiplatelets.',
+        detect: 'Trend review over multiple reporting periods reveals a gradual rise that no single quarter would flag. Subgroup stratification by age and co-medication uncovers the concentration.',
+        evaluate: 'Assess whether the rise reflects increased prescribing (exposure growth) or a genuine rate increase. Check co-medication patterns, dose, renal function, and whether cases cluster in a subgroup.',
+        action: 'If confirmed, consider prescriber guidance on co-medication avoidance, dose adjustment in elderly, and monitoring advice. Track GI bleeding reports post-intervention.',
+        stepMethods: {
+          detect: ['Multi-period trend review', 'Exposure-adjusted reporting rate', 'Subgroup stratification (age, co-meds)'],
+          evaluate: ['Background incidence comparison', 'Dose-response and renal function analysis', 'Co-medication interaction review'],
+          action: ['SmPC update (interaction warnings, dose in elderly)', 'Prescriber education materials', 'Quarterly exposure-adjusted trend monitoring']
+        },
+        stepTools: {
+          detect: ['Safety database trend queries', 'Prescription/exposure data', 'Age-stratified line listing'],
+          evaluate: ['Published epidemiological rates', 'Renal function and dose records', 'Drug interaction databases'],
+          action: ['Labeling workflow', 'Educational material distribution', 'Exposure-adjusted dashboard']
+        },
+        stepKeyPoints: {
+          detect: 'Slow-building signals in chronic-use products are easy to miss because no single period looks alarming. Multi-period trend review with exposure adjustment is essential.',
+          evaluate: 'Rising reports may reflect rising prescribing, not rising risk. Always consider exposure growth before concluding the rate has changed.',
+          action: 'For chronic-use products, action often means refining prescribing guidance (dose, co-medications, monitoring) rather than dramatic label changes.'
+        }
+      },
+      vaccine: {
+        title: 'Post-vaccination cluster of autoimmune events',
+        summary: 'A temporal cluster of Guillain-Barré Syndrome (GBS) cases is reported within 6 weeks of a new adjuvanted vaccine rollout in a national immunisation programme.',
+        detect: 'Cluster detection through passive surveillance and active sentinel site monitoring. Background rate comparison is critical because GBS also occurs spontaneously.',
+        evaluate: 'Compare observed vs expected rates using population-level exposure data. Assess biological plausibility (adjuvant-mediated immune activation), temporal clustering, and whether the signal is geographically consistent.',
+        action: 'If the observed rate significantly exceeds background, coordinate with the national immunisation programme. Options range from enhanced monitoring to age-specific precautionary advice.',
+        stepMethods: {
+          detect: ['Observed-vs-expected rate comparison', 'Active surveillance at sentinel sites', 'Cluster detection by vaccination date cohort'],
+          evaluate: ['Background incidence rate analysis', 'Biological plausibility assessment (adjuvant mechanism)', 'Geographical and temporal consistency check'],
+          action: ['Coordination with national health authority', 'Risk-benefit communication for target population', 'Ongoing active surveillance protocol']
+        },
+        stepTools: {
+          detect: ['National immunisation registry', 'Sentinel surveillance network', 'Passive reporting database (e.g., VAERS/EudraVigilance)'],
+          evaluate: ['Published GBS background rates', 'Vaccine exposure denominators', 'Self-controlled case series (SCCS) design'],
+          action: ['National health authority communication channel', 'Public risk-benefit statement', 'Active surveillance continuation plan']
+        },
+        stepKeyPoints: {
+          detect: 'Vaccine signals require population-level thinking. Passive case counts alone are meaningless without exposure denominators and background rates.',
+          evaluate: 'The key question is whether the observed rate exceeds what would be expected without the vaccine. Self-controlled case series (SCCS) designs are particularly useful for vaccines.',
+          action: 'Vaccine safety actions must balance individual risk against population-level benefit (herd immunity). Communication must be precise to avoid undermining public confidence disproportionately.'
+        }
       }
     };
 
@@ -2156,6 +2297,7 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
     // Additional interactive state
     const appState = {
       regPanelOpen: {},
+      deepDive: {},
       branchStep: 0,
       branchChoices: [],
       branchComplete: false,
@@ -2520,15 +2662,27 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
         const answer = selectedAnswers[i];
         return { stage: s.navTitle, passed: answer === s.checkpoint.correct, answer };
       });
-      const allPassed = checkpointResults.every(r => r.passed);
       const dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      
+      // Skill area breakdown
+      const skillAreas = [
+        { label: 'Conceptual understanding', desc: 'What signals are, how they mature, and why they matter', stages: ['Fundamentals'], icon: '📖' },
+        { label: 'Triage judgment', desc: 'Prioritising which flags deserve deeper review', stages: ['Signal Detection'], icon: '🎯' },
+        { label: 'Evidence interpretation', desc: 'Weighing chronology, confounders, plausibility, and consistency', stages: ['Signal Evaluation'], icon: '⚖️' },
+        { label: 'Action planning', desc: 'Choosing proportionate responses and tracking outcomes', stages: ['Action & Tracking'], icon: '🛠️' },
+        { label: 'Integrated judgment', desc: 'Applying the full workflow across varied scenarios', stages: ['Scenarios'], icon: '🧩' }
+      ];
+
       return `
         <div class="competency-panel" id="competencyPanel">
           <div class="competency-header">
-            <h3>🎓 Module Complete — Signal Management</h3>
+            <h3>📋 Module Completed — Signal Management</h3>
             <p>Completed on ${dateStr}</p>
           </div>
           <div class="competency-body">
+            <div style="padding:12px 16px;border-radius:10px;background:var(--warn-soft);border:1px solid #e0d0a0;margin-bottom:16px;font-size:13px;color:var(--warn)">
+              <strong>What this record shows:</strong> You have engaged with structured signal management training and demonstrated judgment in scenario-based assessments. This does not certify operational competence — real-world readiness requires supervised practice, organisational SOPs, and ongoing experience across diverse product types and signal situations.
+            </div>
             <div class="comp-score-grid">
               ${stages.map((s, i) => `
                 <div class="comp-score-card ${isCompleted(i) ? 'passed' : ''}">
@@ -2537,12 +2691,24 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
                 </div>
               `).join('')}
             </div>
+            <div style="margin:16px 0">
+              <h4 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:10px">Skills practised</h4>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                ${skillAreas.map(sa => `
+                  <div style="padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel-soft);font-size:12px">
+                    <span style="font-size:16px">${sa.icon}</span>
+                    <strong style="display:block;margin:4px 0 2px">${sa.label}</strong>
+                    <span style="color:var(--muted)">${sa.desc}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
             <div class="comp-summary">
               <p><strong>Module:</strong> Signal Management (Module 1 of 6)</p>
               <p><strong>Stages completed:</strong> ${progress.completed.length} / ${stages.length}</p>
-              <p><strong>Checkpoint format:</strong> Scenario-based judgment questions (not recall-based)</p>
-              <p><strong>Interactive exercises:</strong> SDR triage, evaluation challenge, ICSR assessment, branching crisis scenario</p>
-              <p><strong>Evidence of competency:</strong> Ability to detect, evaluate, and act on safety signals proportionately, with awareness of regulatory requirements (GVP IX) and real-world decision-making under uncertainty.</p>
+              <p><strong>Assessment format:</strong> Scenario-based judgment questions, interactive exercises (SDR triage, evaluation challenge, ICSR assessment, branching crisis scenario)</p>
+              <p><strong>Scope:</strong> Conceptual and judgment practice across signal detection, evaluation, and action planning — aligned with GVP Module IX principles.</p>
+              <p><strong>Limitations:</strong> This module uses a limited set of drug-event scenarios. Operational competence requires experience across diverse therapeutic areas, product types, data sources, and regulatory contexts.</p>
             </div>
             <button class="comp-export-btn" id="compExportBtn">Print / Export Training Record</button>
           </div>
@@ -2570,7 +2736,11 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
         </div>
         <div class="stage-card-body">
 
-          <!-- INTRO -->
+          <div class="lesson-flow-note">
+            <strong>📖 Lesson flow:</strong> Read the core concepts, explore the interactive, then test yourself at the checkpoint. Expand the deep-dive sections if you want more detail.
+          </div>
+
+          <!-- INTRO (always visible) -->
           <div class="intro-grid">
             <div class="info-block">
               <h4>${stage.purposeTitle}</h4>
@@ -2583,10 +2753,10 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
             </div>
           </div>
 
-          <!-- LIFECYCLE (fundamentals only) -->
+          <!-- LIFECYCLE (fundamentals only, always visible) -->
           ${stage.id === 'fundamentals' ? renderLifecycleVisual() : ''}
 
-          <!-- CONCEPTS -->
+          <!-- CONCEPTS (always visible — core lesson) -->
           <div class="concept-row">
             ${stage.concepts.map(c => `
               <div class="concept-item">
@@ -2597,65 +2767,7 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
             `).join('')}
           </div>
 
-          <!-- REGULATORY CONTEXT -->
-          ${renderRegPanel(stage.id)}
-
-          <!-- MEMORY (Active Recall) -->
-          ${renderMemorySection(stage)}
-
-          <!-- ADVANCED -->
-          ${stage.advancedCards?.length ? `
-            <div class="section-divider"><h3>${stage.advancedTitle}</h3><p>${stage.advancedSub || ''}</p></div>
-            <div class="method-row">
-              ${stage.advancedCards.map(a => `
-                <div class="method-item">
-                  <span class="method-tag">${a.tag}</span>
-                  <h4>${a.title}</h4>
-                  <p>${a.text}</p>
-                  ${renderAnalogy(stage.id, 'advancedCards', a.title)}
-                </div>
-              `).join('')}
-            </div>
-          ` : ''}
-
-          <!-- INTERACTIVE VISUAL -->
-          ${renderStageVisual(stage.id)}
-
-          <!-- ICSR EXERCISE (evaluation only) -->
-          ${stage.id === 'evaluation' ? renderIcsrExercise() : ''}
-
-          <!-- BRANCHING SCENARIO (scenarios stage only) -->
-          ${stage.id === 'scenarios' ? renderBranchingEngine() : ''}
-
-          <!-- METHODS -->
-          ${stage.methods?.length ? `
-            <div class="section-divider"><h3>Methods and techniques</h3><p>${stage.methodsSub || ''}</p></div>
-            <div class="method-row">
-              ${stage.methods.map(m => `
-                <div class="method-item">
-                  <h4>${m.title}</h4>
-                  <p>${m.text}</p>
-                  ${renderAnalogy(stage.id, 'methods', m.title)}
-                </div>
-              `).join('')}
-            </div>
-          ` : ''}
-
-          <!-- TOOLS -->
-          ${stage.tools?.length ? `
-            <div class="section-divider"><h3>Common tools and data systems</h3><p>${stage.toolsSub || ''}</p></div>
-            <div class="tool-row-grid">
-              ${stage.tools.map(t => `
-                <div class="tool-item">
-                  <h4>${t.title}</h4>
-                  <p>${t.text}</p>
-                  ${renderAnalogy(stage.id, 'tools', t.title)}
-                </div>
-              `).join('')}
-            </div>
-          ` : ''}
-
-          <!-- COMPARE -->
+          <!-- COMPARE (always visible — reinforces concepts) -->
           <div class="compare-row">
             ${stage.compare.map(c => `
               <div class="compare-item ${c.kind}">
@@ -2665,19 +2777,100 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
             `).join('')}
           </div>
 
-          <!-- SCENARIOS -->
-          <div class="scenario-row">
-            ${stage.scenarios.map(s => `
-              <div class="scenario-item">
-                <span class="sc-badge">Example</span>
-                <h4>${s.title}</h4>
-                <p>${s.text}</p>
-                ${renderAnalogy(stage.id, 'scenarios', s.title)}
+          <!-- INTERACTIVE VISUAL (always visible — core engagement) -->
+          ${renderStageVisual(stage.id)}
+
+          <!-- ICSR EXERCISE (evaluation only, always visible) -->
+          ${stage.id === 'evaluation' ? renderIcsrExercise() : ''}
+
+          <!-- BRANCHING SCENARIO (scenarios stage only, always visible) -->
+          ${stage.id === 'scenarios' ? renderBranchingEngine() : ''}
+
+          <!-- ═══ DEEP DIVE: Advanced + Methods + Tools ═══ -->
+          ${(stage.advancedCards?.length || stage.methods?.length || stage.tools?.length) ? `
+          <div class="deep-dive ${appState.deepDive?.['methods-'+stage.id] ? 'open' : ''}" id="dd-methods-${stage.id}">
+            <button class="deep-dive-toggle" data-dd="methods-${stage.id}">
+              <span class="dd-chevron">▶</span>
+              <span class="dd-label">Deep Dive — Methods, Tools & Advanced Detail</span>
+              <span class="dd-hint">${(stage.advancedCards?.length || 0) + (stage.methods?.length || 0) + (stage.tools?.length || 0)} items</span>
+            </button>
+            <div class="deep-dive-body">
+              ${stage.advancedCards?.length ? `
+                <div class="section-divider"><h3>${stage.advancedTitle}</h3><p>${stage.advancedSub || ''}</p></div>
+                <div class="method-row">
+                  ${stage.advancedCards.map(a => `
+                    <div class="method-item">
+                      <span class="method-tag">${a.tag}</span>
+                      <h4>${a.title}</h4>
+                      <p>${a.text}</p>
+                      ${renderAnalogy(stage.id, 'advancedCards', a.title)}
+                    </div>
+                  `).join('')}
+                </div>
+              ` : ''}
+              ${stage.methods?.length ? `
+                <div class="section-divider"><h3>Methods and techniques</h3><p>${stage.methodsSub || ''}</p></div>
+                <div class="method-row">
+                  ${stage.methods.map(m => `
+                    <div class="method-item">
+                      <h4>${m.title}</h4>
+                      <p>${m.text}</p>
+                      ${renderAnalogy(stage.id, 'methods', m.title)}
+                    </div>
+                  `).join('')}
+                </div>
+              ` : ''}
+              ${stage.tools?.length ? `
+                <div class="section-divider"><h3>Common tools and data systems</h3><p>${stage.toolsSub || ''}</p></div>
+                <div class="tool-row-grid">
+                  ${stage.tools.map(t => `
+                    <div class="tool-item">
+                      <h4>${t.title}</h4>
+                      <p>${t.text}</p>
+                      ${renderAnalogy(stage.id, 'tools', t.title)}
+                    </div>
+                  `).join('')}
+                </div>
+              ` : ''}
+            </div>
+          </div>
+          ` : ''}
+
+          <!-- ═══ DEEP DIVE: Examples & Regulatory ═══ -->
+          <div class="deep-dive ${appState.deepDive?.['context-'+stage.id] ? 'open' : ''}" id="dd-context-${stage.id}">
+            <button class="deep-dive-toggle" data-dd="context-${stage.id}">
+              <span class="dd-chevron">▶</span>
+              <span class="dd-label">Deep Dive — Examples, Scenarios & Regulatory Context</span>
+              <span class="dd-hint">${stage.scenarios.length} scenarios</span>
+            </button>
+            <div class="deep-dive-body">
+              <div class="scenario-row">
+                ${stage.scenarios.map(s => `
+                  <div class="scenario-item">
+                    <span class="sc-badge">Example</span>
+                    <h4>${s.title}</h4>
+                    <p>${s.text}</p>
+                    ${renderAnalogy(stage.id, 'scenarios', s.title)}
+                  </div>
+                `).join('')}
               </div>
-            `).join('')}
+              ${renderRegPanel(stage.id)}
+            </div>
           </div>
 
-          <!-- CHECKPOINT -->
+          <!-- ═══ DEEP DIVE: Practice & Recall ═══ -->
+          <div class="deep-dive ${appState.deepDive?.['recall-'+stage.id] ? 'open' : ''}" id="dd-recall-${stage.id}">
+            <button class="deep-dive-toggle" data-dd="recall-${stage.id}">
+              <span class="dd-chevron">▶</span>
+              <span class="dd-label">Practice — Active Recall & Self-Assessment</span>
+              <span class="dd-hint">Test yourself</span>
+            </button>
+            <div class="deep-dive-body">
+              ${renderMemorySection(stage)}
+            </div>
+          </div>
+
+          <!-- CHECKPOINT (always visible — gating) -->
           <div class="checkpoint-shell">
             <div class="checkpoint-header">
               <div class="ck-icon ${completed ? 'passed' : 'pending'}">${completed ? '✓' : '?'}</div>
@@ -2770,6 +2963,16 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
         });
       });
 
+      // Deep-dive toggle
+      card.querySelectorAll('[data-dd]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const key = btn.dataset.dd;
+          appState.deepDive[key] = !appState.deepDive[key];
+          const panel = btn.closest('.deep-dive');
+          if (panel) panel.classList.toggle('open', appState.deepDive[key]);
+        });
+      });
+
       // Regulatory panel toggle
       card.querySelectorAll('[data-reg-toggle]').forEach(el => {
         el.addEventListener('click', () => {
@@ -2854,6 +3057,7 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
       appState.recallText = {};
       appState.recallAssess = {};
       appState.regPanelOpen = {};
+      appState.deepDive = {};
       saveProgress();
       renderAll();
     }
@@ -3058,6 +3262,48 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
             </table>
           </div>
 
+          <!-- MOBILE CARD VIEW -->
+          <div class="sdr-card-grid">
+            ${sdrRows.map((row, idx) => {
+              const pickIndex = picks.indexOf(idx);
+              const isSelected = pickIndex >= 0;
+              const rorWidth = Math.min(100, (row.ror / 6) * 100);
+              let cardClass = 'sdr-card';
+              let rankLabel = '+';
+              if (isSelected && !submitted) { cardClass += ' sdr-selected'; rankLabel = String(pickIndex + 1); }
+              if (submitted) {
+                const isTopPri = sdrTopPriorities.includes(idx);
+                const isGoodPick = sdrGoodPicks.includes(idx);
+                if (isSelected && (isTopPri || isGoodPick)) cardClass += ' sdr-correct';
+                else if (isSelected && !isTopPri && !isGoodPick) cardClass += ' sdr-missed';
+                else if (!isSelected && isTopPri) cardClass += ' sdr-missed';
+                if (isSelected) rankLabel = String(pickIndex + 1);
+                else rankLabel = '';
+              }
+              const flags = [];
+              if (row.dme) flags.push('<span class="sdr-tag dme">DME</span>');
+              if (row.classEffect) flags.push('<span class="sdr-tag class-effect">Class</span>');
+              if (!row.labeled) flags.push('<span class="sdr-tag unlabeled">Unlabeled</span>');
+              if (row.labeled) flags.push('<span class="sdr-tag labeled">Labeled</span>');
+              if (row.ror >= 3.0) flags.push('<span class="sdr-tag high-ror">High ROR</span>');
+              return `
+                <div class="${cardClass}">
+                  <div class="sdr-card-pick"><button class="sdr-rank-btn ${isSelected ? 'ranked' : ''}" data-sdr-pick="${idx}" ${submitted ? 'disabled' : ''}>${rankLabel}</button></div>
+                  <div class="sdr-card-header">
+                    <div class="sdr-card-id">${row.id}</div>
+                    <div class="sdr-card-event">${row.event}<small>${row.ptTerm}</small></div>
+                  </div>
+                  <div class="sdr-card-metrics">
+                    <div class="sdr-card-metric"><strong>${row.ror.toFixed(1)}</strong>ROR</div>
+                    <div class="sdr-card-metric"><strong>${row.n}</strong>Cases</div>
+                    <div class="sdr-card-metric"><strong>${row.serious}/${row.n}</strong>Serious</div>
+                  </div>
+                  <div class="sdr-card-flags">${flags.join(' ')}${row.fatal > 0 ? ' <span class="sdr-tag serious">'+row.fatal+' fatal</span>' : ''}</div>
+                  <div class="sdr-card-context">${row.context}</div>
+                </div>`;
+            }).join('')}
+          </div>
+
           ${!submitted ? `
             <div style="margin-top:12px;padding:12px;border-radius:10px;background:var(--panel-soft);border:1px solid var(--line)">
               <p style="font-size:12px;color:var(--muted);margin:0"><strong style="color:var(--text)">Context for each flag</strong> — hover or review before choosing:</p>
@@ -3080,6 +3326,26 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
           </div>
         </div>
       `;
+    }
+
+    function getDimensionDominance(e) {
+      const weights = {chronology:0.2, dechallenge:0.18, plausibility:0.14, confounding:0.16, consistency:0.14, seriousness:0.18};
+      const labels = {chronology:'Chronology', dechallenge:'Dechallenge', plausibility:'Plausibility', confounding:'Confounders excluded', consistency:'Consistency', seriousness:'Seriousness'};
+      const contributions = Object.entries(weights).map(([k,w]) => ({key:k, label:labels[k], value:e[k], weight:w, contribution: e[k]*w}));
+      contributions.sort((a,b) => b.contribution - a.contribution);
+      const total = contributions.reduce((s,c) => s + c.contribution, 0);
+      const top = contributions.slice(0, 3);
+      const topPct = total > 0 ? Math.round((top.reduce((s,c) => s+c.contribution, 0) / total) * 100) : 0;
+      // Identify weak spots (below 30)
+      const weak = contributions.filter(c => c.value < 30).map(c => c.label);
+      return { top, topPct, weak, total };
+    }
+
+    function renderDimensionInsight(e) {
+      const d = getDimensionDominance(e);
+      const topNames = d.top.map(t => `<strong>${t.label}</strong> (${t.value})`).join(', ');
+      const weakNote = d.weak.length ? `<br><span style="color:var(--rose)">Gaps:</span> ${d.weak.join(', ')} — these dimensions weaken the overall picture.` : '';
+      return `<p style="margin:6px 0 0;font-size:12px"><strong style="color:var(--accent)">Driving dimensions:</strong> ${topNames} — these three contribute ${d.topPct}% of the credibility picture.${weakNote}</p><p style="margin:4px 0 0;font-size:11px;color:var(--muted)">In real practice, ask: which evidence dimensions am I relying on, and are the gaps acceptable for the action I\'m considering?</p>`;
     }
 
     function renderEvaluationVisual() {
@@ -3143,8 +3409,8 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
             <div class="interactive-card">
               <h4>Signal credibility</h4>
               <div class="score-box">
-                <div class="stat-line"><span>Score</span><strong style="color:var(--text)" id="evaluationScore">${score.toFixed(0)} / 100</strong></div>
-                <div class="stat-line"><span>Strength</span><strong style="color:var(--text)" id="evaluationStrength">${strength}</strong></div>
+                <div class="stat-line"><span>Overall pattern</span><strong style="color:var(--text)" id="evaluationScore">${score.toFixed(0)} / 100</strong></div>
+                <div class="stat-line"><span>Credibility</span><strong style="color:var(--text)" id="evaluationStrength">${strength}</strong></div>
               </div>
               <div class="meter-shell">
                 <div class="meter-track"><div class="meter-thumb" id="evaluationThumb" style="left:${thumb}%"></div></div>
@@ -3159,7 +3425,7 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
                   </div>
                 `).join('')}
               </div>
-              <div class="result-box" style="margin-top:10px" id="evaluationSummary"><p style="margin:0"><strong>Interpretation:</strong> ${summary}</p></div>
+              <div class="result-box" style="margin-top:10px" id="evaluationSummary"><p style="margin:0"><strong>Interpretation:</strong> ${summary}</p>${renderDimensionInsight(e)}</div>
             </div>
           </div>
         </div>
@@ -3457,7 +3723,7 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
             if(el('evaluationScore')) el('evaluationScore').textContent = `${score.toFixed(0)} / 100`;
             if(el('evaluationStrength')) el('evaluationStrength').textContent = strength;
             if(el('evaluationThumb')) el('evaluationThumb').style.left = `${Math.min(100,Math.max(0,score))}%`;
-            if(el('evaluationSummary')) el('evaluationSummary').innerHTML = `<p style="margin:0"><strong>Interpretation:</strong> ${summary}</p>`;
+            if(el('evaluationSummary')) el('evaluationSummary').innerHTML = `<p style="margin:0"><strong>Interpretation:</strong> ${summary}</p>${renderDimensionInsight(e)}`;
             Object.entries(e).forEach(([k,v]) => {
               if(el(`evalValue-${k}`)) el(`evalValue-${k}`).textContent = v;
               if(el(`evaluationBar-${k}`)) el(`evaluationBar-${k}`).style.width = `${v}%`;
