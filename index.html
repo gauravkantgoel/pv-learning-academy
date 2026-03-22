@@ -822,6 +822,35 @@
     .locked-panel ul { margin: 8px 0 0 16px; padding: 0; }
     .locked-panel li { font-size: 13px; color: var(--muted); }
 
+    /* ── PV JOURNEY LANDING ── */
+    .pv-journey-landing { background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:40px 36px;text-align:center; }
+    .pvj-hero { margin-bottom:28px; }
+    .pvj-icon { width:64px;height:64px;border-radius:16px;display:inline-grid;place-items:center;font-size:28px;background:linear-gradient(135deg,#0a0e1a,#1a2744);margin-bottom:16px; }
+    .pvj-eyebrow { font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--amber);margin-bottom:10px; }
+    .pvj-hero h2 { font-family:var(--font-display);font-size:clamp(24px,3vw,32px);font-weight:500;letter-spacing:-0.02em; }
+    .pvj-desc { font-size:15px;color:var(--muted);margin-top:10px;max-width:560px;display:inline-block;line-height:1.6; }
+    .pvj-acts { display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:600px;margin:0 auto 28px;text-align:left; }
+    .pvj-act { display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel-soft); }
+    .pvj-act-num { width:32px;height:32px;border-radius:8px;display:grid;place-items:center;flex-shrink:0;font-family:var(--font-display);font-size:16px;font-weight:700; }
+    .pvj-act strong { font-size:13px; }
+    .pvj-act-desc { font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4; }
+    .pvj-meta { display:flex;gap:16px;justify-content:center;margin-bottom:24px; }
+    .pvj-stat { text-align:center;padding:10px 18px;border:1px solid var(--line);border-radius:10px;background:var(--panel-soft); }
+    .pvj-stat strong { display:block;font-size:22px;font-family:var(--font-display);font-weight:700;color:var(--accent); }
+    .pvj-stat span { font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.04em; }
+    .pvj-launch-btn { font:inherit;font-size:15px;font-weight:600;padding:14px 36px;border-radius:999px;background:linear-gradient(135deg,#0a0e1a,#1a2744);color:#f6b93b;border:none;cursor:pointer;transition:all 0.3s ease;letter-spacing:0.02em; }
+    .pvj-launch-btn:hover { box-shadow:0 8px 30px rgba(10,14,26,0.3);transform:translateY(-1px); }
+    .pvj-footnote { font-size:11px;color:var(--muted);margin-top:14px; }
+
+    .pvj-overlay { position:fixed;inset:0;z-index:10000;background:#0a0e1a;display:none; }
+    .pvj-overlay.active { display:block; }
+    .pvj-overlay iframe { width:100%;height:100%;border:none; }
+    .pvj-back-btn { position:fixed;top:12px;left:12px;z-index:10001;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:8px 18px;border-radius:100px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.12);cursor:pointer;transition:all 0.2s ease;display:none; }
+    .pvj-back-btn.active { display:block; }
+    .pvj-back-btn:hover { background:rgba(255,255,255,0.15);color:#fff; }
+
+    @media (max-width:768px) { .pvj-acts{grid-template-columns:1fr;} .pvj-meta{flex-wrap:wrap;} .pv-journey-landing{padding:24px 20px;} }
+
     /* ── MODULE LANDING (future modules) ── */
     .module-landing {
       background: var(--panel);
@@ -1349,6 +1378,7 @@
     // MODULE REGISTRY
     // ═══════════════════════════════════════════
     const modules = [
+      { id: 'pv-journey', title: 'The PV Journey', icon: '✨', active: true },
       { id: 'signal-management', title: 'Signal Management', icon: '📡', active: true },
       { id: 'aggregate-reporting', title: 'Aggregate Reporting (PSUR/PBRER)', icon: '📊', active: false },
       { id: 'risk-management', title: 'Risk Management (RMP)', icon: '🛡️', active: false },
@@ -1357,7 +1387,7 @@
       { id: 'medical-coding', title: 'Medical Coding (MedDRA/WHODrug)', icon: '🏷️', active: false }
     ];
 
-    let activeModuleId = 'signal-management';
+    let activeModuleId = 'pv-journey';
     const storageKey = 'pv_academy_signal_mgmt_v4';
 
     // ═══════════════════════════════════════════
@@ -2348,7 +2378,12 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
     // ═══════════════════════════════════════════
     function renderSidebar() {
       const area = document.getElementById('sidebarArea');
-      if (activeModuleId !== 'signal-management') { area.innerHTML = ''; return; }
+      if (activeModuleId !== 'signal-management') {
+        area.innerHTML = '';
+        document.querySelector('.main-grid').style.gridTemplateColumns = '1fr';
+        return;
+      }
+      document.querySelector('.main-grid').style.gridTemplateColumns = '260px 1fr';
 
       const pct = (progress.completed.length / stages.length) * 100;
       area.innerHTML = `
@@ -2409,6 +2444,34 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
     // ═══════════════════════════════════════════
     function renderContent() {
       const area = document.getElementById('contentArea');
+
+      if (activeModuleId === 'pv-journey') {
+        area.innerHTML = `
+          <div class="pv-journey-landing">
+            <div class="pvj-hero">
+              <div class="pvj-icon">✨</div>
+              <div class="pvj-eyebrow">Interactive Learning Experience</div>
+              <h2>The Pharmacovigilance Journey</h2>
+              <p class="pvj-desc">Follow the story of a single adverse event — from the moment a product is manufactured, through case processing and signal detection, to the moment a patient is made safer.</p>
+            </div>
+            <div class="pvj-acts">
+              <div class="pvj-act"><div class="pvj-act-num" style="background:var(--accent-soft);color:var(--accent)">I</div><div><strong>The Origin & Adverse Event</strong><div class="pvj-act-desc">Product → Prescription → Patient → Adverse Event → Day Zero</div></div></div>
+              <div class="pvj-act"><div class="pvj-act-num" style="background:var(--amber-soft);color:var(--amber)">II</div><div><strong>Case Processing</strong><div class="pvj-act-desc">ICSR → MedDRA → Causality → Medical Review → E2B(R3)</div></div></div>
+              <div class="pvj-act"><div class="pvj-act-num" style="background:var(--rose-soft);color:var(--rose)">III</div><div><strong>Submission, Signals & Action</strong><div class="pvj-act-desc">Expedited Reporting → Signal Detection → Label Update → Loop Closes</div></div></div>
+              <div class="pvj-act"><div class="pvj-act-num" style="background:var(--good-soft);color:var(--good)">IV</div><div><strong>The Governance Framework</strong><div class="pvj-act-desc">PSMF → QPPV → PVA/SDEA → RMP → SMP → PBRER</div></div></div>
+            </div>
+            <div class="pvj-meta">
+              <div class="pvj-stat"><strong>26</strong><span>Scenes</span></div>
+              <div class="pvj-stat"><strong>4</strong><span>Acts</span></div>
+              <div class="pvj-stat"><strong>20+</strong><span>Key Concepts</span></div>
+              <div class="pvj-stat"><strong>9</strong><span>Actors</span></div>
+            </div>
+            <button class="pvj-launch-btn" onclick="launchPVJourney()">Enter the PV Journey →</button>
+            <p class="pvj-footnote">Interactive constellation experience · ~15 min</p>
+          </div>
+        `;
+        return;
+      }
 
       if (activeModuleId !== 'signal-management') {
         const m = modules.find(x => x.id === activeModuleId);
@@ -3794,5 +3857,743 @@ No alcohol history. No prior liver disease. Metformin stable for 4 years.`,
     document.getElementById('resetProgressBtn').addEventListener('click', resetProgress);
     renderAll();
   </script>
+  <!-- PV JOURNEY OVERLAY -->
+  <div class="pvj-overlay" id="pvjOverlay"></div>
+  <button class="pvj-back-btn" id="pvjBackBtn" onclick="closePVJourney()">← Back to Academy</button>
+
+  <script>
+    const PV_STORY_HTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pharmacovigilance Story</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg-deep: #0a0e1a;
+    --patient-gold: #f6b93b;
+    --product-teal: #00d2d3;
+    --hcp-green: #7bed9f;
+    --mah-blue: #74b9ff;
+    --event-red: #ff6b6b;
+    --pv-cyan: #81ecec;
+    --cro-lavender: #a29bfe;
+    --reg-violet: #d19dff;
+    --lit-rose: #fd79a8;
+    --partner-orange: #ffa502;
+    --text-primary: rgba(255,255,255,0.92);
+    --text-secondary: rgba(255,255,255,0.5);
+    --text-dim: rgba(255,255,255,0.22);
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background: var(--bg-deep); color: var(--text-primary); font-family: var(--font-body); overflow: hidden; width:100vw; height:100vh; user-select:none; }
+
+  #bg-canvas { position:fixed; inset:0; z-index:0; }
+  .stage { position:fixed; inset:0; z-index:10; }
+  #svg-layer { position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:5; pointer-events:none; overflow:visible; }
+
+  /* ── Actor ── */
+  .actor { position:absolute; display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0; transform:scale(0.7); transition:opacity 0.8s ease, transform 0.8s cubic-bezier(0.23,1,0.32,1); z-index:20; cursor:pointer; }
+  .actor.visible { opacity:1; transform:scale(1); }
+  .actor .actor-orb { width:70px; height:70px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; position:relative; transition:box-shadow 0.6s ease; }
+  .actor .actor-name { font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-secondary); transition:color 0.4s ease; text-align:center; max-width:100px; line-height:1.4; }
+  .actor:hover .actor-name { color:var(--text-primary); }
+  .actor .actor-pulse { position:absolute; inset:0; border-radius:50%; opacity:0; pointer-events:none; }
+  .actor.pulse .actor-pulse { animation:pulse-glow 2s ease-out infinite; }
+  @keyframes pulse-glow { 0%{transform:scale(1);opacity:0.5;} 100%{transform:scale(1.9);opacity:0;} }
+  .actor.size-lg .actor-orb { width:78px; height:78px; font-size:30px; }
+  .actor.size-sm .actor-orb { width:54px; height:54px; font-size:20px; }
+
+  /* ── Narrative ── */
+  .narrative { position:fixed; top:22px; left:50%; transform:translateX(-50%); z-index:100; text-align:center; max-width:560px; width:88vw; pointer-events:none; }
+  .narrative .scene-title { font-family:var(--font-display); font-weight:300; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--text-dim); margin-bottom:6px; opacity:0; transition:opacity 0.6s ease; }
+  .narrative .scene-title.visible { opacity:1; }
+  .narrative .scene-text { font-family:var(--font-display); font-style:italic; font-size:18px; font-weight:300; line-height:1.55; color:var(--text-secondary); opacity:0; transition:opacity 0.8s ease; }
+  .narrative .scene-text.visible { opacity:1; }
+
+  /* ── Concept Cards ── */
+  .concept-card { position:fixed; z-index:80; background:rgba(17,24,39,0.92); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:18px 22px; max-width:270px; backdrop-filter:blur(16px); opacity:0; transform:translateY(10px); transition:opacity 0.5s ease, transform 0.5s ease; pointer-events:none; }
+  .concept-card.visible { opacity:1; transform:translateY(0); pointer-events:auto; }
+  .concept-card .cc-label { font-size:8px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; margin-bottom:7px; opacity:0.35; }
+  .concept-card .cc-term { font-family:var(--font-display); font-size:18px; font-weight:400; margin-bottom:8px; }
+  .concept-card .cc-def { font-size:11.5px; line-height:1.6; color:var(--text-secondary); margin-bottom:8px; }
+  .concept-card .cc-source { font-size:9.5px; color:var(--text-dim); padding:5px 9px; background:rgba(255,255,255,0.03); border-radius:6px; line-height:1.4; }
+
+  /* ── Day Counter ── */
+  .day-counter { position:fixed; z-index:70; text-align:center; opacity:0; transition:opacity 0.8s ease; pointer-events:none; }
+  .day-counter.visible { opacity:1; }
+  .day-counter .day-num { font-family:var(--font-display); font-size:42px; font-weight:300; letter-spacing:2px; }
+  .day-counter .day-label { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); margin-top:2px; }
+
+  /* ── Summary ── */
+  .summary-overlay { position:fixed; inset:0; z-index:60; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px 20px; opacity:0; transition:opacity 0.8s ease; pointer-events:none; overflow-y:auto; }
+  .summary-overlay.visible { opacity:1; pointer-events:auto; }
+  .summary-overlay .sum-act-label { font-size:9px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--text-dim); margin-bottom:6px; }
+  .summary-overlay .sum-title { font-family:var(--font-display); font-size:26px; font-weight:300; letter-spacing:2px; margin-bottom:24px; color:var(--text-primary); }
+  .summary-overlay .sum-section-label { font-size:8px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:8px; margin-top:6px; }
+  .summary-overlay .sum-items { display:flex; flex-direction:column; gap:7px; max-width:560px; width:100%; text-align:left; }
+  .summary-overlay .sum-item { display:flex; align-items:flex-start; gap:10px; opacity:0; transform:translateY(6px); transition:opacity 0.4s ease, transform 0.4s ease; }
+  .summary-overlay .sum-item.visible { opacity:1; transform:translateY(0); }
+  .summary-overlay .sum-dot { width:6px; height:6px; margin-top:6px; border-radius:50%; flex-shrink:0; }
+  .summary-overlay .sum-text { font-size:12.5px; line-height:1.5; color:var(--text-secondary); }
+  .summary-overlay .sum-text .s-actor { font-weight:600; }
+  .summary-overlay .sum-text .s-verb { font-family:var(--font-display); font-style:italic; }
+  .summary-overlay .sum-text .s-concept { font-weight:600; }
+  .summary-overlay .sum-philosophy { font-family:var(--font-display); font-style:italic; font-size:15px; color:var(--text-dim); margin-top:28px; max-width:420px; line-height:1.6; opacity:0; transition:opacity 0.8s ease 1.2s; }
+  .summary-overlay.visible .sum-philosophy { opacity:1; }
+
+  /* ── Info Panel ── */
+  .info-panel { position:fixed; z-index:200; background:rgba(17,24,39,0.95); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:20px 24px; max-width:320px; min-width:250px; backdrop-filter:blur(20px); opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity 0.3s ease, transform 0.3s ease; }
+  .info-panel.visible { opacity:1; pointer-events:auto; transform:translateY(0); }
+  .info-panel .ip-header { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .info-panel .ip-icon { font-size:22px; }
+  .info-panel .ip-title { font-family:var(--font-display); font-size:19px; font-weight:400; }
+  .info-panel .ip-role { font-size:9px; font-weight:600; letter-spacing:2px; text-transform:uppercase; opacity:0.4; margin-bottom:8px; }
+  .info-panel .ip-desc { font-size:12px; line-height:1.65; color:var(--text-secondary); }
+  .info-panel .ip-close { position:absolute; top:8px; right:10px; background:none; border:none; color:var(--text-dim); cursor:pointer; font-size:16px; }
+  .info-panel .ip-close:hover { color:var(--text-primary); }
+
+  /* ── Controls ── */
+  .controls { position:fixed; bottom:0; left:0; right:0; z-index:100; padding:8px 20px 18px; display:flex; flex-direction:column; align-items:center; gap:10px; background:linear-gradient(transparent, rgba(10,14,26,0.95) 40%); pointer-events:none; }
+  .controls > * { pointer-events:auto; }
+  .scene-indicators { display:flex; gap:3px; flex-wrap:wrap; justify-content:center; }
+  .scene-pip { width:18px; height:3px; border-radius:2px; background:rgba(255,255,255,0.07); transition:all 0.4s ease; cursor:pointer; }
+  .scene-pip.active { background:var(--patient-gold); width:26px; }
+  .scene-pip.completed { background:rgba(246,185,59,0.28); }
+  .pip-gap { width:8px; }
+  .control-buttons { display:flex; gap:10px; align-items:center; }
+  .ctrl-btn { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); color:var(--text-secondary); font-family:var(--font-body); font-size:11px; font-weight:500; letter-spacing:1px; text-transform:uppercase; padding:9px 20px; border-radius:100px; cursor:pointer; transition:all 0.3s ease; }
+  .ctrl-btn:hover { background:rgba(255,255,255,0.1); color:var(--text-primary); }
+  .ctrl-btn.primary { background:rgba(246,185,59,0.1); border-color:rgba(246,185,59,0.2); color:var(--patient-gold); }
+  .ctrl-btn.primary:hover { background:rgba(246,185,59,0.18); }
+
+  .act-jump { display:flex; gap:6px; align-items:center; margin-bottom:4px; }
+  .act-jump-btn { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); color:var(--text-dim); font-family:var(--font-body); font-size:9px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; padding:5px 12px; border-radius:100px; cursor:pointer; transition:all 0.3s ease; white-space:nowrap; }
+  .act-jump-btn:hover { background:rgba(255,255,255,0.08); color:var(--text-secondary); border-color:rgba(255,255,255,0.12); }
+  .act-jump-btn.active-act { background:rgba(246,185,59,0.1); border-color:rgba(246,185,59,0.15); color:var(--patient-gold); }
+  .scene-label { font-family:var(--font-display); font-size:13px; font-weight:400; color:var(--text-dim); letter-spacing:2px; text-transform:uppercase; min-height:18px; }
+  .footer { position:fixed; bottom:4px; right:16px; z-index:100; font-size:9px; letter-spacing:1px; color:var(--text-dim); opacity:0.3; }
+
+  /* ── Intro ── */
+  .intro-overlay { position:fixed; inset:0; z-index:500; background:var(--bg-deep); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px; transition:opacity 1s ease; }
+  .intro-overlay.hidden { opacity:0; pointer-events:none; }
+  .intro-overlay h1 { font-family:var(--font-display); font-weight:300; font-size:38px; letter-spacing:6px; text-transform:uppercase; margin-bottom:14px; }
+  .intro-overlay .intro-sub { font-family:var(--font-display); font-style:italic; font-size:17px; color:var(--text-secondary); margin-bottom:46px; max-width:480px; line-height:1.7; }
+  .intro-overlay .begin-btn { background:rgba(246,185,59,0.08); border:1px solid rgba(246,185,59,0.2); color:var(--patient-gold); font-family:var(--font-body); font-size:12px; font-weight:500; letter-spacing:3px; text-transform:uppercase; padding:14px 40px; border-radius:100px; cursor:pointer; transition:all 0.4s ease; }
+  .intro-overlay .begin-btn:hover { background:rgba(246,185,59,0.16); border-color:rgba(246,185,59,0.4); box-shadow:0 0 30px rgba(246,185,59,0.1); }
+
+  @media (max-width:768px) {
+    .intro-overlay h1 { font-size:26px; }
+    .narrative .scene-text { font-size:15px; }
+    .concept-card { max-width:210px; }
+    .actor .actor-orb { width:56px; height:56px; font-size:22px; }
+    .actor.size-lg .actor-orb { width:64px; height:64px; }
+    .actor.size-sm .actor-orb { width:44px; height:44px; }
+  }
+<\/style>
+</head>
+<body>
+
+<div class="intro-overlay" id="intro">
+  <h1>The PV Story</h1>
+  <p class="intro-sub">Follow the journey of a single adverse event — from the moment a product is made, to the moment a patient is made safer.</p>
+  <button class="begin-btn" onclick="beginExperience()">Begin the Story</button>
+</div>
+
+<canvas id="bg-canvas"></canvas>
+<svg id="svg-layer" width="100%" height="100%"></svg>
+<div class="stage" id="stage"></div>
+
+<div class="narrative">
+  <div class="scene-title" id="scene-title"></div>
+  <div class="scene-text" id="scene-text"></div>
+</div>
+
+<div class="day-counter" id="day-counter">
+  <div class="day-num" id="day-num"></div>
+  <div class="day-label" id="day-label"></div>
+</div>
+
+<div class="concept-card" id="concept-1"></div>
+<div class="concept-card" id="concept-2"></div>
+<div class="concept-card" id="concept-3"></div>
+
+<div class="summary-overlay" id="summary-overlay"></div>
+
+<div class="info-panel" id="info-panel">
+  <button class="ip-close" onclick="closeIP()">✕</button>
+  <div class="ip-header"><span class="ip-icon" id="ip-icon"></span><span class="ip-title" id="ip-title"></span></div>
+  <div class="ip-role" id="ip-role"></div>
+  <div class="ip-desc" id="ip-desc"></div>
+</div>
+
+<div class="controls">
+  <div class="act-jump" id="act-jump"></div>
+  <div class="scene-label" id="scene-label"></div>
+  <div class="scene-indicators" id="scene-indicators"></div>
+  <div class="control-buttons">
+    <button class="ctrl-btn" onclick="prevScene()">← Back</button>
+    <button class="ctrl-btn" onclick="nextScene()">Next →</button>
+  </div>
+</div>
+<div class="footer">© Gaurav Goel · Powered by Vitrana</div>
+
+<script>
+// ═══════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════
+const A = (id,icon,name,color,glow,x,y,size,pulse,role,desc) =>
+  ({id,icon,name,color,glow:glow||\`\${color}33\`,x,y,size:size||'md',pulse:!!pulse,role:role||'',desc:desc||''});
+const C = (from,to,color,verb,faded) => ({from,to,color,verb:verb||'',faded:!!faded});
+const K = (id,term,color,pos,def,source) => ({id,term,color,pos,def,source:source||''});
+
+// ═══════════════════════════════════════════
+// ALL SCENES
+// ═══════════════════════════════════════════
+const SCENES = [
+  // 0: blank
+  {t:'',x:'',label:'Prologue',type:'scene',actors:[],conns:[],concepts:[],day:null},
+
+  // ═══ ACT I: ORIGIN & ADVERSE EVENT ═══
+  {t:'Act I · Scene 1',label:'The Manufacturer',type:'scene',
+    x:'A pharmaceutical company develops a new drug for hypertension. They receive regulatory approval and become the Marketing Authorisation Holder — legally responsible for the product\\'s safety.',
+    actors:[A('mah','🏢','MAH','#74b9ff',null,50,48,'lg',1,'Marketing Authorisation Holder','The company that develops, manufactures, and holds the license for a pharmaceutical product. They bear primary legal responsibility for monitoring its safety throughout its entire lifecycle.')],
+    conns:[],concepts:[],day:null},
+
+  {t:'Act I · Scene 2',label:'The Product',type:'scene',
+    x:'The MAH manufactures the product — a drug called "CardioSafe" for high blood pressure. Products can also be vaccines or medical devices.',
+    actors:[
+      A('mah','🏢','MAH','#74b9ff',null,33,48,'md',0,'MAH','The company behind CardioSafe.'),
+      A('product','💊','CardioSafe','#00d2d3',null,67,48,'lg',1,'Drug · Device · Vaccine','The therapeutic product. Its safety profile evolves with real-world use and is never fully known at approval.')
+    ],
+    conns:[C('mah','product','#74b9ff','manufactures')],concepts:[],day:null},
+
+  {t:'Act I · Scene 3',label:'The Prescription',type:'scene',
+    x:'A doctor reviews CardioSafe\\'s prescribing information and decides it\\'s appropriate for their patient, Maria, age 62.',
+    actors:[
+      A('mah','🏢','MAH','#74b9ff',null,20,35,'sm',0,'MAH','The company behind CardioSafe.'),
+      A('product','💊','CardioSafe','#00d2d3',null,50,35,'sm',0,'Drug','CardioSafe for hypertension.'),
+      A('hcp','⚕️','HCP','#7bed9f',null,50,62,'lg',1,'Healthcare Professional','The prescriber and first clinical observer.')
+    ],
+    conns:[C('mah','product','#74b9ff','',1),C('mah','hcp','#74b9ff','provides info to')],concepts:[],day:null},
+
+  {t:'Act I · Scene 4',label:'The Patient',type:'scene',
+    x:'Maria receives CardioSafe from her doctor and begins taking it daily. The product enters a real-world relationship with a unique human being.',
+    actors:[
+      A('mah','🏢','MAH','#74b9ff',null,18,28,'sm',0,'MAH','The company behind CardioSafe.'),
+      A('product','💊','CardioSafe','#00d2d3',null,50,28,'sm',0,'Drug','CardioSafe for hypertension.'),
+      A('hcp','⚕️','HCP','#7bed9f',null,82,28,'sm',0,'HCP','Maria\\'s doctor.'),
+      A('patient','🧑','Maria','#f6b93b',null,50,58,'lg',1,'Patient · The Center of PV','Maria, 62, diagnosed with hypertension. She is the reason pharmacovigilance exists.')
+    ],
+    conns:[C('mah','product','#74b9ff','',1),C('mah','hcp','#74b9ff','',1),C('hcp','patient','#7bed9f','prescribes to'),C('product','patient','#00d2d3','administered to')],concepts:[],day:null},
+
+  {t:'Act I · Scene 5',label:'Time Passes',type:'scene',
+    x:'Fourteen days pass. Maria takes CardioSafe as directed. Then one morning, she notices a severe skin rash spreading across her arms.',
+    actors:[
+      A('patient','🧑','Maria','#f6b93b',null,35,50,'lg',0,'Patient','Taking CardioSafe for 14 days.'),
+      A('product','💊','CardioSafe','#00d2d3',null,65,50,'md',0,'Drug','Administered daily for 14 days.')
+    ],
+    conns:[C('product','patient','#00d2d3','takes daily')],concepts:[],
+    day:{num:'Day 14',label:'since first dose',x:50,y:26,color:'var(--text-secondary)'}},
+
+  {t:'Act I · Scene 6',label:'The Adverse Event',type:'scene',
+    x:'Maria develops a severe skin rash — an Adverse Event. CardioSafe becomes the Suspect Product.',
+    actors:[
+      A('patient','🧑','Maria','#ff6b6b','rgba(255,107,107,0.3)',25,50,'lg',1,'Patient — adverse event','Maria has developed a severe skin rash.'),
+      A('product','💊','CardioSafe','#ff6b6b','rgba(255,107,107,0.2)',55,50,'md',0,'Suspect Product','Now suspected of causing the AE.')
+    ],
+    conns:[C('patient','product','#ff6b6b','reacts to')],
+    concepts:[
+      K(1,'Adverse Event (AE)','#ff6b6b',{right:'4%',top:'20%'},'Any untoward medical occurrence in a patient administered a pharmaceutical product, which does not necessarily have a causal relationship with the treatment.','ICH E2A'),
+      K(2,'Suspect Product','#00d2d3',{right:'4%',top:'55%'},'The product suspected of causing the adverse reaction. Causality is assessed later.','ICH E2D')
+    ],day:null},
+
+  {t:'Act I · Scene 7',label:'Day Zero',type:'scene',
+    x:'Maria tells her doctor. The doctor contacts the manufacturer. The moment the MAH first learns of the event is Day Zero — the compliance clock starts.',
+    actors:[
+      A('patient','🧑','Maria','#ff6b6b','rgba(255,107,107,0.2)',12,50,'md',0,'Patient','Maria reports her rash.'),
+      A('hcp','⚕️','HCP','#7bed9f',null,33,50,'md',0,'HCP','Contacts the manufacturer.'),
+      A('mah','🏢','MAH','#74b9ff',null,54,50,'lg',1,'MAH','Receives the report. Day Zero — timelines begin.')
+    ],
+    conns:[C('patient','hcp','#ff6b6b','reports rash to'),C('hcp','mah','#7bed9f','files AE report to')],
+    concepts:[
+      K(1,'Day Zero','#f6b93b',{right:'3%',top:'20%'},'The date the MAH first becomes aware of an AE meeting minimum criteria. All regulatory deadlines count from this date.','ICH E2D'),
+      K(2,'Minimum Criteria','#81ecec',{right:'3%',top:'58%'},'Four elements: (1) Identifiable reporter, (2) Identifiable patient, (3) Suspect product, (4) Adverse event.','ICH E2D, EU GVP Module VI')
+    ],
+    day:{num:'Day 0',label:'the clock starts',x:54,y:27,color:'var(--patient-gold)'}},
+
+  // ACT I SUMMARY
+  {t:'',x:'',label:'Act I Summary',type:'summary',actors:[],conns:[],concepts:[],day:null,
+    summary:{actLabel:'Act I Complete',title:'Story So Far',
+      sections:[
+        {label:'The Journey',items:[
+          {color:'#74b9ff',html:'<span class="s-actor" style="color:#74b9ff">MAH</span> <span class="s-verb">manufactures</span> <span class="s-actor" style="color:#00d2d3">CardioSafe</span> (the Product)'},
+          {color:'#7bed9f',html:'<span class="s-actor" style="color:#7bed9f">HCP</span> <span class="s-verb">prescribes</span> CardioSafe to <span class="s-actor" style="color:#f6b93b">Maria</span> (the Patient)'},
+          {color:'#f6b93b',html:'<span class="s-actor" style="color:#f6b93b">Maria</span> <span class="s-verb">consumes</span> CardioSafe daily'},
+          {color:'#ff6b6b',html:'Maria <span class="s-verb">experiences</span> <span class="s-concept" style="color:#ff6b6b">Adverse Event</span> → reports to HCP → HCP reports to MAH → <span class="s-concept" style="color:#f6b93b">Day Zero</span>'},
+        ]},
+        {label:'Key Concepts',items:[
+          {color:'#ff6b6b',html:'<span class="s-concept" style="color:#ff6b6b">Adverse Event</span> · <span class="s-concept" style="color:#00d2d3">Suspect Product</span> · <span class="s-concept" style="color:#f6b93b">Day Zero</span> · <span class="s-concept" style="color:#81ecec">4 Minimum Criteria</span>'},
+        ]}
+      ],philosophy:'"An adverse event is not a failure — it is the system beginning to listen."'}},
+
+  // ═══ ACT II: CASE PROCESSING ═══
+  {t:'Act II · Scene 1',label:'Case Intake',type:'scene',
+    x:'The MAH receives Maria\\'s report and creates an Individual Case Safety Report — the ICSR. This structured record is the fundamental unit of pharmacovigilance.',
+    actors:[
+      A('mah','🏢','MAH','#74b9ff',null,33,48,'md',0,'MAH','Creates an ICSR from the report.'),
+      A('icsr','📋','ICSR','#f6b93b',null,67,48,'lg',1,'Individual Case Safety Report','Standard structured format for recording an AE. Contains patient info, suspect product, event description, reporter info. Follows ICH E2B(R3).')
+    ],
+    conns:[C('mah','icsr','#f6b93b','creates')],
+    concepts:[K(1,'ICSR','#f6b93b',{right:'4%',top:'25%'},'Individual Case Safety Report — the fundamental unit of PV. A structured document in a globally standardized format.','ICH E2B(R3)')],
+    day:{num:'Day 0–1',label:'case created',x:50,y:25,color:'var(--patient-gold)'}},
+
+  {t:'Act II · Scene 2',label:'Case Processing',type:'scene',
+    x:'PV Personnel — the safety workforce — take over. They enter data, code the adverse event using MedDRA medical terminology, and assess seriousness.',
+    actors:[
+      A('icsr','📋','ICSR','#f6b93b',null,25,48,'md',0,'ICSR','Maria\\'s case being processed.'),
+      A('pv','🔬','PV Personnel','#81ecec',null,62,48,'lg',1,'The Safety Workforce','Case processors, medical reviewers, signal analysts, narrative writers.')
+    ],
+    conns:[C('pv','icsr','#81ecec','processes')],
+    concepts:[
+      K(1,'MedDRA','#81ecec',{right:'4%',top:'20%'},'Medical Dictionary for Regulatory Activities — standardized terminology to code adverse events. "Skin rash" becomes a precise hierarchical code.','ICH-maintained'),
+      K(2,'Seriousness Criteria','#ff6b6b',{right:'4%',top:'57%'},'An AE is "serious" if it results in death, is life-threatening, requires hospitalization, causes disability, is a congenital anomaly, or is medically important.','ICH E2A')
+    ],
+    day:{num:'Day 1–3',label:'case processing',x:44,y:25,color:'var(--pv-cyan)'}},
+
+  {t:'Act II · Scene 3',label:'The CRO',type:'scene',
+    x:'Many MAHs partner with a Contract Research Organisation to handle case processing. The CRO does the work, but the MAH retains ultimate responsibility.',
+    actors:[
+      A('mah','🏢','MAH','#74b9ff',null,25,35,'sm',0,'MAH','Retains ultimate responsibility.'),
+      A('cro','🤝','CRO','#a29bfe',null,55,55,'lg',1,'Contract Research Organisation','Extends the MAH\\'s capacity — case processing, medical review, narrative writing. MAH can outsource work but never responsibility.'),
+      A('pv','🔬','PV Personnel','#81ecec',null,80,35,'sm',0,'Safety Workforce','PV staff within the CRO.')
+    ],
+    conns:[C('mah','cro','#a29bfe','delegates to'),C('cro','pv','#81ecec','employs',1)],concepts:[],day:null},
+
+  {t:'Act II · Scene 4',label:'Medical Review',type:'scene',
+    x:'A medical reviewer assesses the case. The central question: did CardioSafe cause Maria\\'s rash? This is where clinical judgment meets structured data.',
+    actors:[
+      A('icsr','📋','ICSR','#f6b93b',null,25,48,'md',0,'Processed Case','Coded, data-entered, now under review.'),
+      A('reviewer','⚕️','Medical Reviewer','#d19dff',null,62,48,'lg',1,'Medical Reviewer','A physician who reviews causality, writes the narrative, makes the final medical assessment.')
+    ],
+    conns:[C('reviewer','icsr','#d19dff','assesses causality of')],
+    concepts:[
+      K(1,'Causality Assessment','#d19dff',{right:'3%',top:'20%'},'Evaluating if the product caused the AE. Frameworks: WHO-UMC (Certain, Probable, Possible, Unlikely) and Naranjo Algorithm.','WHO-UMC, Naranjo 1981'),
+      K(2,'Case Narrative','#f6b93b',{right:'3%',top:'58%'},'A concise clinical summary: patient, product, event, outcome. The human story behind the structured data.','ICH E2B(R3)')
+    ],
+    day:{num:'Day 3–7',label:'medical review',x:44,y:25,color:'var(--reg-violet)'}},
+
+  {t:'Act II · Scene 5',label:'Case Complete',type:'scene',
+    x:'After quality review, Maria\\'s case is complete — coded, assessed, narrated, and ready for submission in E2B(R3) format.',
+    actors:[A('icsr','📋','ICSR','#7bed9f','rgba(123,237,159,0.25)',50,48,'lg',1,'Completed ICSR','MedDRA coded, causality "Possible", narrative written, QC\\'d, ready for submission.')],
+    conns:[],
+    concepts:[K(1,'E2B(R3)','#7bed9f',{right:'4%',top:'32%'},'International standard for electronic ICSR transmission between companies and regulators.','ICH E2B(R3)')],
+    day:{num:'Day 7–10',label:'case complete',x:50,y:25,color:'var(--hcp-green)'}},
+
+  // ACT II SUMMARY
+  {t:'',x:'',label:'Act II Summary',type:'summary',actors:[],conns:[],concepts:[],day:null,
+    summary:{actLabel:'Act II Complete',title:'Story So Far',
+      sections:[
+        {label:'Act I — Origin & Adverse Event',items:[
+          {color:'#74b9ff',html:'<span class="s-actor" style="color:#74b9ff">MAH</span> <span class="s-verb">manufactures</span> <span class="s-actor" style="color:#00d2d3">CardioSafe</span> → <span class="s-actor" style="color:#7bed9f">HCP</span> <span class="s-verb">prescribes</span> → <span class="s-actor" style="color:#f6b93b">Maria</span> <span class="s-verb">consumes</span>'},
+          {color:'#ff6b6b',html:'Maria <span class="s-verb">experiences</span> <span class="s-concept" style="color:#ff6b6b">AE</span> → reports to HCP → HCP reports to MAH → <span class="s-concept" style="color:#f6b93b">Day Zero</span>'},
+        ]},
+        {label:'Act II — Case Processing',items:[
+          {color:'#f6b93b',html:'MAH <span class="s-verb">creates</span> <span class="s-concept" style="color:#f6b93b">ICSR</span> → <span class="s-actor" style="color:#81ecec">PV Personnel</span> <span class="s-verb">process</span> (<span class="s-concept" style="color:#81ecec">MedDRA</span>, seriousness)'},
+          {color:'#a29bfe',html:'<span class="s-actor" style="color:#a29bfe">CRO</span> may handle processing; MAH retains responsibility'},
+          {color:'#d19dff',html:'<span class="s-actor" style="color:#d19dff">Medical Reviewer</span> <span class="s-verb">assesses causality</span>, writes narrative → case complete in <span class="s-concept" style="color:#7bed9f">E2B(R3)</span>'},
+        ]},
+        {label:'All Concepts',items:[
+          {color:'#ff6b6b',html:'<span class="s-concept" style="color:#ff6b6b">AE</span> · <span class="s-concept" style="color:#00d2d3">Suspect Product</span> · <span class="s-concept" style="color:#f6b93b">Day Zero</span> · <span class="s-concept" style="color:#81ecec">Minimum Criteria</span> · <span class="s-concept" style="color:#f6b93b">ICSR</span> · <span class="s-concept" style="color:#81ecec">MedDRA</span> · <span class="s-concept" style="color:#d19dff">Causality</span> · <span class="s-concept" style="color:#7bed9f">E2B(R3)</span>'},
+        ]}
+      ],philosophy:'"Behind every case number is a human decision, a clinical judgment, a responsibility."'}},
+
+  // ═══ ACT III: SUBMISSION, SIGNALS, ACTION ═══
+  {t:'Act III · Scene 1',label:'Regulatory Submission',type:'scene',
+    x:'Maria\\'s completed ICSR is submitted electronically to regulatory authorities. Serious and unexpected cases must be submitted within 15 calendar days of Day Zero.',
+    actors:[
+      A('mah','🏢','MAH','#74b9ff',null,25,48,'md',0,'MAH','Submits the ICSR.'),
+      A('reg','🏛️','Regulator','#d19dff',null,70,48,'lg',1,'Regulatory Authority','FDA, EMA, PMDA. They set rules, receive data, and act to protect public health.')
+    ],
+    conns:[C('mah','reg','#d19dff','submits ICSR to')],
+    concepts:[
+      K(1,'Expedited Reporting','#d19dff',{right:'3%',top:'20%'},'Serious, unexpected reactions: 15 calendar days from Day Zero. Fatal/life-threatening: 7 days initial + 15 days follow-up.','ICH E2D'),
+      K(2,'Periodic Reporting','#74b9ff',{right:'3%',top:'58%'},'Non-expedited cases submitted in aggregate PBRER/PSUR reports — comprehensive benefit-risk assessments over defined intervals.','ICH E2C(R2)')
+    ],
+    day:{num:'Day 15',label:'submission deadline',x:48,y:25,color:'var(--reg-violet)'}},
+
+  {t:'Act III · Scene 2',label:'Signal Detection',type:'scene',
+    x:'Maria\\'s case joins millions of others in global safety databases. Analysts look for patterns — signals — that no single case could reveal.',
+    actors:[
+      A('db','🗄️','Safety Databases','#d19dff','rgba(209,157,255,0.15)',50,40,'lg',1,'Global Safety Databases','FAERS (FDA), EudraVigilance (EMA), VigiBase (WHO) — millions of ICSRs analyzed by statistical algorithms for disproportionate patterns.'),
+      A('maria','📋','Maria\\'s Case','#f6b93b','rgba(246,185,59,0.1)',20,62,'sm',0,'One ICSR','One of thousands of CardioSafe reports.'),
+      A('signal','⚡','Signal','#ff6b6b','rgba(255,107,107,0.3)',80,55,'md',1,'Safety Signal','CardioSafe skin rash reports are significantly higher than expected.')
+    ],
+    conns:[C('maria','db','#f6b93b','enters'),C('db','signal','#ff6b6b','reveals')],
+    concepts:[K(1,'Safety Signal','#ff6b6b',{left:'3%',top:'18%'},'Information suggesting a new potentially causal association between a product and an AE that warrants further investigation.','EU GVP Module IX')],day:null},
+
+  {t:'Act III · Scene 3',label:'Regulatory Action',type:'scene',
+    x:'The signal is confirmed. Regulators require the MAH to update CardioSafe\\'s label with a new warning about skin reactions. A Dear Healthcare Provider letter is issued.',
+    actors:[
+      A('reg','🏛️','Regulator','#d19dff',null,18,42,'lg',1,'Regulatory Authority','Mandates safety action after confirming the signal.'),
+      A('mah','🏢','MAH','#74b9ff',null,48,42,'md',0,'MAH','Must implement required safety changes.'),
+      A('hcp','⚕️','HCP','#7bed9f',null,48,68,'md',0,'HCP','Receives updated safety information.')
+    ],
+    conns:[C('reg','mah','#d19dff','mandates label update'),C('mah','hcp','#74b9ff','sends safety update to')],
+    concepts:[
+      K(1,'DHCP Letter','#7bed9f',{right:'3%',top:'22%'},'Dear Healthcare Provider letter — direct communication about important new safety information.','EU GVP Module XV'),
+      K(2,'Risk Minimisation','#d19dff',{right:'3%',top:'58%'},'Measures to reduce adverse reaction probability: label updates, restricted access programs, patient guides, REMS.','EU GVP Module XVI')
+    ],day:null},
+
+  {t:'Act III · Scene 4',label:'The Loop Closes',type:'scene',
+    x:'Updated safety information reaches Maria\\'s doctor, who adjusts her treatment. The loop closes — Maria is safer. And the system keeps watching.',
+    actors:[
+      A('hcp','⚕️','HCP','#7bed9f',null,35,48,'md',0,'HCP','Receives updated prescribing info about CardioSafe.'),
+      A('patient','🧑','Maria','#f6b93b',null,65,48,'lg',1,'Patient — Protected','Doctor adjusts treatment based on new safety data. The PV system has fulfilled its purpose.')
+    ],
+    conns:[C('hcp','patient','#7bed9f','provides informed care to')],concepts:[],day:null},
+
+  // ACT III SUMMARY
+  {t:'',x:'',label:'Act III Summary',type:'summary',actors:[],conns:[],concepts:[],day:null,
+    summary:{actLabel:'Act III Complete',title:'Story So Far',
+      sections:[
+        {label:'Act I — Origin & Adverse Event',items:[
+          {color:'#74b9ff',html:'<span class="s-actor" style="color:#74b9ff">MAH</span> <span class="s-verb">manufactures</span> <span class="s-actor" style="color:#00d2d3">CardioSafe</span> → <span class="s-actor" style="color:#7bed9f">HCP</span> <span class="s-verb">prescribes</span> → <span class="s-actor" style="color:#f6b93b">Maria</span> <span class="s-verb">consumes</span>'},
+          {color:'#ff6b6b',html:'<span class="s-concept" style="color:#ff6b6b">AE</span> occurs → reported → <span class="s-concept" style="color:#f6b93b">Day Zero</span>'},
+        ]},
+        {label:'Act II — Case Processing',items:[
+          {color:'#f6b93b',html:'<span class="s-concept" style="color:#f6b93b">ICSR</span> created → <span class="s-concept" style="color:#81ecec">MedDRA</span> coded → <span class="s-concept" style="color:#d19dff">causality</span> assessed → <span class="s-concept" style="color:#7bed9f">E2B(R3)</span> ready'},
+        ]},
+        {label:'Act III — Submission, Signals & Action',items:[
+          {color:'#d19dff',html:'MAH <span class="s-verb">submits</span> to <span class="s-actor" style="color:#d19dff">Regulator</span> (<span class="s-concept" style="color:#d19dff">15-day expedited</span> or <span class="s-concept" style="color:#74b9ff">PBRER</span> periodic)'},
+          {color:'#ff6b6b',html:'Aggregated cases reveal a <span class="s-concept" style="color:#ff6b6b">Safety Signal</span> in global databases (FAERS, EudraVigilance, VigiBase)'},
+          {color:'#d19dff',html:'<span class="s-actor" style="color:#d19dff">Regulator</span> <span class="s-verb">mandates</span> label update + <span class="s-concept" style="color:#7bed9f">DHCP letter</span> + <span class="s-concept" style="color:#d19dff">risk minimisation</span>'},
+          {color:'#f6b93b',html:'Safety info flows back: Regulator → MAH → HCP → <span class="s-actor" style="color:#f6b93b">Maria</span> — the loop closes'},
+        ]},
+        {label:'All Concepts So Far',items:[
+          {color:'#ff6b6b',html:'<span class="s-concept" style="color:#ff6b6b">AE</span> · <span class="s-concept" style="color:#00d2d3">Suspect Product</span> · <span class="s-concept" style="color:#f6b93b">Day Zero</span> · <span class="s-concept" style="color:#81ecec">Minimum Criteria</span> · <span class="s-concept" style="color:#f6b93b">ICSR</span> · <span class="s-concept" style="color:#81ecec">MedDRA</span> · <span class="s-concept" style="color:#d19dff">Causality</span> · <span class="s-concept" style="color:#7bed9f">E2B(R3)</span> · <span class="s-concept" style="color:#d19dff">Expedited Reporting</span> · <span class="s-concept" style="color:#ff6b6b">Signal</span> · <span class="s-concept" style="color:#7bed9f">DHCP Letter</span>'},
+        ]}
+      ],philosophy:'"The loop closes not with a document, but with a patient made safer. And then it begins again."'}},
+
+  // ═══ ACT IV: THE GOVERNANCE FRAMEWORK ═══
+  {t:'Act IV · Scene 1',label:'The PSMF',type:'scene',
+    x:'The story you\\'ve followed doesn\\'t happen by accident. It is governed by a framework of documents and roles. The PSMF is the master blueprint — describing the MAH\\'s entire pharmacovigilance system.',
+    actors:[
+      A('psmf','📘','PSMF','#74b9ff',null,35,42,'lg',1,'Pharmacovigilance System Master File','The master document describing the MAH\\'s entire PV system — organizational structure, processes, databases, quality systems, contractual arrangements with partners. Must be maintained continuously and available to regulators on request.'),
+      A('mah','🏢','MAH','#74b9ff',null,12,60,'sm',0,'MAH','Maintains the PSMF.'),
+      A('pv','🔬','PV Personnel','#81ecec',null,35,68,'sm',0,'PV Personnel','Described in the PSMF.'),
+      A('cro','🤝','CRO','#a29bfe',null,58,60,'sm',0,'CRO','Arrangements documented in PSMF.')
+    ],
+    conns:[C('psmf','mah','#74b9ff','describes system of'),C('psmf','pv','#81ecec','documents roles of'),C('psmf','cro','#a29bfe','covers arrangements with')],
+    concepts:[K(1,'PSMF','#74b9ff',{right:'3%',top:'20%'},'Pharmacovigilance System Master File — a detailed description of the MAH\\'s PV system. Includes organizational charts, process descriptions, database details, and contractual arrangements. A living document, updated continuously.','EU GVP Module II, Article 104 Directive 2001/83/EC')],day:null},
+
+  {t:'Act IV · Scene 2',label:'The QPPV',type:'scene',
+    x:'One individual bears personal legal responsibility for the MAH\\'s entire pharmacovigilance system — the Qualified Person for Pharmacovigilance. Named in the PSMF, accountable to regulators.',
+    actors:[
+      A('qppv','👤','QPPV','#d19dff',null,35,48,'lg',1,'Qualified Person for PV','The single named individual legally responsible for the establishment and maintenance of the MAH\\'s PV system. Must reside in the EU (for EU-authorized products), have appropriate qualifications, and be permanently and continuously available. Named in the PSMF.'),
+      A('mah','🏢','MAH','#74b9ff',null,12,48,'sm',0,'MAH','Appoints the QPPV.'),
+      A('reg','🏛️','Regulator','#d19dff','rgba(209,157,255,0.15)',58,48,'sm',0,'Regulator','QPPV is the single point of contact.')
+    ],
+    conns:[C('mah','qppv','#74b9ff','appoints'),C('qppv','reg','#d19dff','accountable to')],
+    concepts:[K(1,'QPPV','#d19dff',{right:'3%',top:'22%'},'Qualified Person for Pharmacovigilance — the single named individual legally responsible for the MAH\\'s PV system. Must be permanently available, appropriately qualified, and serves as the regulatory authority\\'s single point of contact.','EU GVP Module I, Article 104(3)(a)')],day:null},
+
+  {t:'Act IV · Scene 3',label:'PVA & SDEA',type:'scene',
+    x:'When the MAH works with partners — CROs, co-marketing partners, licensees — formal agreements define who does what. These are the PVA and SDEA.',
+    actors:[
+      A('mah','🏢','MAH','#74b9ff',null,15,48,'md',0,'MAH','One party to the agreement.'),
+      A('pva','📄','PVA / SDEA','#ffa502',null,35,42,'lg',1,'PV Agreement / Safety Data Exchange Agreement','Formal contracts defining PV responsibilities between partners: who collects cases, who processes them, who submits to regulators, within what timelines. The MAH can delegate tasks but never the ultimate responsibility for patient safety.'),
+      A('partner','🏭','Partner','#ffa502',null,55,48,'md',0,'Partner','Co-marketing partner, licensee, CRO, or distributor. Any entity that shares PV responsibilities with the MAH under a formal agreement.')
+    ],
+    conns:[C('mah','pva','#74b9ff','is bound by'),C('partner','pva','#ffa502','is bound by')],
+    concepts:[
+      K(1,'PVA / SDEA','#ffa502',{right:'3%',top:'20%'},'Pharmacovigilance Agreement / Safety Data Exchange Agreement — contracts defining who collects, processes, and reports safety data. Specifies timelines, responsibilities, and escalation procedures between partners.','EU GVP Module I, ICH E2D'),
+      K(2,'Partner','#ffa502',{right:'3%',top:'58%'},'Any entity sharing PV responsibilities with the MAH: co-marketing partners, licensees, distributors, CROs. Each relationship requires a formal written agreement defining obligations.','EU GVP Module I')
+    ],day:null},
+
+  {t:'Act IV · Scene 4',label:'The RMP',type:'scene',
+    x:'Before CardioSafe ever reached Maria, the MAH submitted a Risk Management Plan. It outlines known risks, potential risks, and the plan to monitor and minimize them.',
+    actors:[
+      A('rmp','📕','RMP','#ff6b6b',null,35,42,'lg',1,'Risk Management Plan','Submitted at the time of marketing authorization. Describes the product\\'s safety profile: known risks (the Safety Specification), what the MAH will do to learn more (Pharmacovigilance Plan), and how they will reduce risks (Risk Minimisation Measures). Updated throughout the product lifecycle.'),
+      A('product','💊','CardioSafe','#00d2d3',null,12,60,'sm',0,'Product','The product the RMP covers.'),
+      A('reg','🏛️','Regulator','#d19dff','rgba(209,157,255,0.15)',58,60,'sm',0,'Regulator','Reviews and approves the RMP.')
+    ],
+    conns:[C('rmp','product','#00d2d3','covers risks of'),C('rmp','reg','#d19dff','submitted to')],
+    concepts:[K(1,'RMP','#ff6b6b',{right:'3%',top:'22%'},'Risk Management Plan — a comprehensive document describing the product\\'s safety profile, the plan to investigate uncertainties, and the measures to minimize known risks. Required at authorization, updated throughout the product lifecycle.','EU GVP Module V, ICH E2E')],day:null},
+
+  {t:'Act IV · Scene 5',label:'The SMP',type:'scene',
+    x:'The signal that emerged in Act III didn\\'t happen by luck. The MAH has a Signal Management Plan defining how they systematically detect, validate, and act on signals.',
+    actors:[
+      A('smp','📗','SMP','#81ecec',null,35,42,'lg',1,'Signal Management Plan','Defines the data sources (company database, FAERS, EudraVigilance, VigiBase, literature), statistical methods (PRR, ROR, EBGM), review cadence, validation criteria, and escalation procedures for signal management.'),
+      A('db','🗄️','Safety Databases','#d19dff','rgba(209,157,255,0.1)',12,62,'sm',0,'Databases','FAERS, EudraVigilance, VigiBase.'),
+      A('signal','⚡','Signal','#ff6b6b','rgba(255,107,107,0.15)',58,62,'sm',0,'Signal','Detected through the SMP process.')
+    ],
+    conns:[C('smp','db','#81ecec','monitors'),C('smp','signal','#ff6b6b','detects')],
+    concepts:[K(1,'SMP','#81ecec',{right:'3%',top:'22%'},'Signal Management Plan — defines systematic processes for signal detection, validation, prioritization, assessment, and recommended action. Specifies data sources, statistical methods, review frequency, and escalation criteria.','EU GVP Module IX')],day:null},
+
+  {t:'Act IV · Scene 6',label:'The PBRER',type:'scene',
+    x:'Periodically, the MAH produces a comprehensive report assessing CardioSafe\\'s overall benefit-risk balance — the PBRER. Maria\\'s case is one data point within this larger picture.',
+    actors:[
+      A('pbrer','📙','PBRER','#74b9ff',null,35,42,'lg',1,'Periodic Benefit-Risk Evaluation Report','A comprehensive analysis of the product\\'s benefit-risk profile over a defined period. Integrates individual cases (like Maria\\'s), clinical trial data, published literature, signal assessments, and real-world evidence into a single regulatory document.'),
+      A('icsr','📋','Maria\\'s ICSR','#f6b93b','rgba(246,185,59,0.1)',12,62,'sm',0,'Individual Case','One of thousands of cases analyzed.'),
+      A('reg','🏛️','Regulator','#d19dff','rgba(209,157,255,0.15)',58,62,'sm',0,'Regulator','Receives and evaluates the PBRER.')
+    ],
+    conns:[C('icsr','pbrer','#f6b93b','incorporated into'),C('pbrer','reg','#d19dff','submitted to')],
+    concepts:[K(1,'PBRER / PSUR','#74b9ff',{right:'3%',top:'22%'},'Periodic Benefit-Risk Evaluation Report (PBRER, also known as PSUR). A comprehensive, periodic assessment of the product\\'s benefit-risk balance integrating all available safety and efficacy data. Submitted to regulators at defined intervals.','ICH E2C(R2)')],day:null},
+
+  // ACT IV SUMMARY — FULL STORY
+  {t:'',x:'',label:'Complete Summary',type:'summary',actors:[],conns:[],concepts:[],day:null,
+    summary:{actLabel:'The Complete PV Story',title:'Everything We Learned',
+      sections:[
+        {label:'Act I — Origin & Adverse Event',items:[
+          {color:'#74b9ff',html:'<span class="s-actor" style="color:#74b9ff">MAH</span> <span class="s-verb">manufactures</span> <span class="s-actor" style="color:#00d2d3">CardioSafe</span> → <span class="s-actor" style="color:#7bed9f">HCP</span> <span class="s-verb">prescribes</span> → <span class="s-actor" style="color:#f6b93b">Maria</span> <span class="s-verb">consumes</span>'},
+          {color:'#ff6b6b',html:'<span class="s-concept" style="color:#ff6b6b">Adverse Event</span> → reported → <span class="s-concept" style="color:#f6b93b">Day Zero</span> · 4 <span class="s-concept" style="color:#81ecec">Minimum Criteria</span>'},
+        ]},
+        {label:'Act II — Case Processing',items:[
+          {color:'#f6b93b',html:'<span class="s-concept" style="color:#f6b93b">ICSR</span> created → <span class="s-actor" style="color:#81ecec">PV Personnel</span> process (<span class="s-concept" style="color:#81ecec">MedDRA</span>, seriousness) → <span class="s-actor" style="color:#d19dff">Medical Reviewer</span> assesses <span class="s-concept" style="color:#d19dff">causality</span>'},
+          {color:'#a29bfe',html:'<span class="s-actor" style="color:#a29bfe">CRO</span> may process; MAH retains responsibility → complete in <span class="s-concept" style="color:#7bed9f">E2B(R3)</span>'},
+        ]},
+        {label:'Act III — Submission, Signals & Safety Action',items:[
+          {color:'#d19dff',html:'<span class="s-concept" style="color:#d19dff">Expedited</span> (15 days) or <span class="s-concept" style="color:#74b9ff">PBRER</span> (periodic) submission to <span class="s-actor" style="color:#d19dff">Regulator</span>'},
+          {color:'#ff6b6b',html:'<span class="s-concept" style="color:#ff6b6b">Safety Signal</span> detected → label update + <span class="s-concept" style="color:#7bed9f">DHCP letter</span> + <span class="s-concept" style="color:#d19dff">risk minimisation</span>'},
+          {color:'#f6b93b',html:'Safety info flows back: Regulator → MAH → HCP → <span class="s-actor" style="color:#f6b93b">Patient</span> — loop closes'},
+        ]},
+        {label:'Act IV — Governance Framework',items:[
+          {color:'#74b9ff',html:'<span class="s-concept" style="color:#74b9ff">PSMF</span> — master blueprint of the PV system'},
+          {color:'#d19dff',html:'<span class="s-concept" style="color:#d19dff">QPPV</span> — the single person legally responsible'},
+          {color:'#ffa502',html:'<span class="s-concept" style="color:#ffa502">PVA / SDEA</span> — agreements with <span class="s-actor" style="color:#ffa502">Partners</span> defining responsibilities'},
+          {color:'#ff6b6b',html:'<span class="s-concept" style="color:#ff6b6b">RMP</span> — risk management plan for the product lifecycle'},
+          {color:'#81ecec',html:'<span class="s-concept" style="color:#81ecec">SMP</span> — systematic signal detection process'},
+          {color:'#74b9ff',html:'<span class="s-concept" style="color:#74b9ff">PBRER</span> — periodic comprehensive benefit-risk assessment'},
+        ]},
+        {label:'All Actors',items:[
+          {color:'#f6b93b',html:'<span class="s-actor" style="color:#f6b93b">Patient</span> · <span class="s-actor" style="color:#00d2d3">Product</span> · <span class="s-actor" style="color:#7bed9f">HCP</span> · <span class="s-actor" style="color:#74b9ff">MAH</span> · <span class="s-actor" style="color:#81ecec">PV Personnel</span> · <span class="s-actor" style="color:#a29bfe">CRO</span> · <span class="s-actor" style="color:#d19dff">Regulator</span> · <span class="s-actor" style="color:#ffa502">Partner</span> · <span class="s-actor" style="color:#d19dff">QPPV</span>'},
+        ]}
+      ],philosophy:'"Pharmacovigilance is not a process. It is a living system of actors, interactions, and human judgment — working to keep patients safe."'}},
+];
+
+const TOTAL = SCENES.length - 1;
+let cur = 0, cx, cy;
+
+// Act jump map: label → first scene index of that act
+const ACTS = [
+  {label:'Act I', start:1},
+  {label:'Act II', start:9},
+  {label:'Act III', start:15},
+  {label:'Act IV', start:20},
+];
+
+// ═══ BACKGROUND ═══
+let pts = [];
+function initBG() {
+  const c=document.getElementById('bg-canvas'),ctx=c.getContext('2d');
+  c.width=innerWidth; c.height=innerHeight; cx=c.width/2; cy=c.height/2;
+  pts=[];
+  for(let i=0;i<Math.floor(c.width*c.height/8000);i++) pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()+0.2,a:Math.random()*0.3+0.04,s:Math.random()*0.12+0.02,p:Math.random()*Math.PI*2});
+  !function anim(t){ctx.clearRect(0,0,c.width,c.height);const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(c.width,c.height)*0.55);g.addColorStop(0,'#111b30');g.addColorStop(1,'#0a0e1a');ctx.fillStyle=g;ctx.fillRect(0,0,c.width,c.height);for(const p of pts){const f=Math.sin(t*0.001*p.s+p.p)*0.3+0.7;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=\`rgba(255,255,255,\${p.a*f})\`;ctx.fill();}requestAnimationFrame(anim);}(0);
+}
+
+// ═══ RENDER ═══
+function render() {
+  const sc=SCENES[cur], svg=document.getElementById('svg-layer');
+  svg.innerHTML='';
+  document.querySelectorAll('.actor').forEach(e=>e.remove());
+  closeIP(); hideConcepts(); hideSum();
+  document.getElementById('day-counter').classList.remove('visible');
+  const tE=document.getElementById('scene-title'), xE=document.getElementById('scene-text');
+  tE.classList.remove('visible'); xE.classList.remove('visible');
+
+  if(sc.type==='summary'){renderSum(sc.summary);renderPips();renderActJump();document.getElementById('scene-label').textContent=sc.label;return;}
+
+  setTimeout(()=>{tE.textContent=sc.t;tE.classList.add('visible');},100);
+  setTimeout(()=>{xE.textContent=sc.x;xE.classList.add('visible');},300);
+
+  sc.actors.forEach((a,i)=>{
+    const el=document.createElement('div');
+    el.className=\`actor \${a.size==='lg'?'size-lg':a.size==='sm'?'size-sm':''}\`;
+    if(a.pulse)el.classList.add('pulse');
+    el.style.left=a.x+'%';el.style.top=a.y+'%';el.style.transform='translate(-50%,-50%)';
+    const orb=document.createElement('div');orb.className='actor-orb';
+    orb.style.background=\`radial-gradient(circle at 40% 35%,\${a.color}33,\${a.color}0d)\`;
+    orb.style.border=\`1.5px solid \${a.color}55\`;
+    orb.style.boxShadow=\`0 0 22px \${a.glow},inset 0 0 16px \${a.glow}\`;
+    orb.textContent=a.icon;
+    const pu=document.createElement('div');pu.className='actor-pulse';pu.style.border=\`1.5px solid \${a.color}\`;
+    const nm=document.createElement('div');nm.className='actor-name';nm.textContent=a.name;
+    el.appendChild(pu);el.appendChild(orb);el.appendChild(nm);
+    if(a.desc)el.addEventListener('click',e=>{e.stopPropagation();showIP(a,e);});
+    document.getElementById('stage').appendChild(el);
+    setTimeout(()=>el.classList.add('visible'),200+i*200);
+  });
+
+  sc.conns.forEach((c,i)=>setTimeout(()=>drawConn(c,sc.actors),500+i*350));
+  sc.concepts.forEach((c,i)=>setTimeout(()=>showConc(c),800+i*400));
+
+  if(sc.day){setTimeout(()=>{const el=document.getElementById('day-counter');document.getElementById('day-num').textContent=sc.day.num;document.getElementById('day-num').style.color=sc.day.color;document.getElementById('day-label').textContent=sc.day.label;el.style.left=sc.day.x+'%';el.style.top=sc.day.y+'%';el.style.transform='translate(-50%,-50%)';el.classList.add('visible');},400);}
+
+  renderPips();renderActJump();document.getElementById('scene-label').textContent=sc.label;
+}
+
+function drawConn(cn,actors){
+  const svg=document.getElementById('svg-layer');
+  const fa=actors.find(a=>a.id===cn.from),ta=actors.find(a=>a.id===cn.to);
+  if(!fa||!ta)return;
+  const w=innerWidth,h=innerHeight;
+  const x1=fa.x/100*w,y1=fa.y/100*h,x2=ta.x/100*w,y2=ta.y/100*h;
+  const mx=(x1+x2)/2,my=(y1+y2)/2;
+
+  // Dotted line
+  const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1',x1);line.setAttribute('y1',y1);
+  line.setAttribute('x2',x2);line.setAttribute('y2',y2);
+  line.setAttribute('stroke',cn.color);
+  line.setAttribute('stroke-width',cn.faded?'1':'2');
+  line.setAttribute('stroke-dasharray',cn.faded?'4 6':'6 4');
+  line.setAttribute('stroke-linecap','round');
+  line.setAttribute('opacity','0');
+  svg.appendChild(line);
+
+  // Animate in
+  setTimeout(()=>line.setAttribute('opacity',cn.faded?'0.15':'0.55'),50);
+  line.style.transition='opacity 0.8s ease';
+
+  // Verb pill on top
+  if(cn.verb){
+    const dx=x2-x1,dy=y2-y1,l=Math.hypot(dx,dy)||1;
+    const ox=(-dy/l)*16,oy=(dx/l)*16;
+    const lx=mx+ox,ly=my+oy;
+
+    // Use foreignObject for better text rendering
+    const fo=document.createElementNS('http://www.w3.org/2000/svg','foreignObject');
+    const tw=Math.max(cn.verb.length*7.5+24,80);
+    fo.setAttribute('x',lx-tw/2);fo.setAttribute('y',ly-14);
+    fo.setAttribute('width',tw);fo.setAttribute('height',28);
+    fo.setAttribute('opacity','0');
+    fo.style.transition='opacity 0.6s ease 0.3s';
+    fo.innerHTML=\`<div xmlns="http://www.w3.org/1999/xhtml" style="
+      display:flex;align-items:center;justify-content:center;height:100%;
+      font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.5px;
+      color:\${cn.color};background:rgba(10,14,26,0.88);
+      border:1px solid \${cn.color}33;border-radius:100px;padding:0 10px;
+      white-space:nowrap;
+    ">\${cn.verb}</div>\`;
+    svg.appendChild(fo);
+    setTimeout(()=>fo.setAttribute('opacity','1'),100);
+  }
+
+  // Flow dot
+  if(!cn.faded){
+    const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    dot.setAttribute('r','3');dot.setAttribute('fill',cn.color);dot.setAttribute('opacity','0');
+    svg.appendChild(dot);
+    setTimeout(()=>{
+      const dur=2200,st=performance.now();
+      !function step(t){const p=((t-st)%dur)/dur;dot.setAttribute('cx',x1+(x2-x1)*p);dot.setAttribute('cy',y1+(y2-y1)*p);dot.setAttribute('opacity',p<0.1?p*8:p>0.9?(1-p)*8:'0.7');if(dot.isConnected)requestAnimationFrame(step);}(st);
+    },600);
+  }
+}
+
+function showConc(c){
+  const el=document.getElementById(\`concept-\${c.id}\`);
+  for(const[k,v]of Object.entries(c.pos))el.style[k]=v;
+  if(!c.pos.left)el.style.left='auto';if(!c.pos.right)el.style.right='auto';
+  if(!c.pos.top)el.style.top='auto';if(!c.pos.bottom)el.style.bottom='auto';
+  el.innerHTML=\`<div class="cc-label">Key Concept</div><div class="cc-term" style="color:\${c.color}">\${c.term}</div><div class="cc-def">\${c.def}</div>\${c.source?\`<div class="cc-source">\${c.source}</div>\`:''}\`;
+  el.classList.add('visible');
+}
+function hideConcepts(){for(let i=1;i<=3;i++){const e=document.getElementById(\`concept-\${i}\`);e.classList.remove('visible');e.innerHTML='';}}
+
+function renderSum(d){
+  const el=document.getElementById('summary-overlay');
+  let h=\`<div class="sum-act-label">\${d.actLabel}</div><div class="sum-title">\${d.title}</div>\`,idx=0;
+  for(const s of d.sections){h+=\`<div class="sum-section-label">\${s.label}</div><div class="sum-items">\`;
+    for(const i of s.items){h+=\`<div class="sum-item" style="transition-delay:\${0.12+idx*0.08}s"><div class="sum-dot" style="background:\${i.color}"></div><div class="sum-text">\${i.html}</div></div>\`;idx++;}
+    h+=\`</div>\`;}
+  h+=\`<div class="sum-philosophy">\${d.philosophy}</div>\`;el.innerHTML=h;
+  setTimeout(()=>{el.classList.add('visible');el.querySelectorAll('.sum-item').forEach(i=>i.classList.add('visible'));},200);
+}
+function hideSum(){document.getElementById('summary-overlay').classList.remove('visible');}
+
+function showIP(a,e){
+  if(!a.desc)return;const p=document.getElementById('info-panel');
+  document.getElementById('ip-icon').textContent=a.icon;
+  document.getElementById('ip-title').textContent=a.name;document.getElementById('ip-title').style.color=a.color;
+  document.getElementById('ip-role').textContent=a.role;document.getElementById('ip-desc').textContent=a.desc;
+  let l=e.clientX+16,t=e.clientY-30;
+  if(l+320>innerWidth-20)l=e.clientX-340;if(t+260>innerHeight-100)t=innerHeight-360;
+  if(t<80)t=80;if(l<20)l=20;p.style.left=l+'px';p.style.top=t+'px';p.classList.add('visible');
+}
+function closeIP(){document.getElementById('info-panel').classList.remove('visible');}
+
+function renderPips(){
+  const c=document.getElementById('scene-indicators');c.innerHTML='';
+  for(let i=0;i<=TOTAL;i++){
+    if(SCENES[i].type==='summary'&&i>0){const g=document.createElement('div');g.className='pip-gap';c.appendChild(g);}
+    const p=document.createElement('div');p.className='scene-pip';
+    if(i===cur)p.classList.add('active');else if(i<cur)p.classList.add('completed');
+    p.onclick=()=>go(i);c.appendChild(p);
+    if(SCENES[i].type==='summary'){const g=document.createElement('div');g.className='pip-gap';c.appendChild(g);}
+  }
+}
+
+function go(n){cur=Math.max(0,Math.min(TOTAL,n));render();}
+function next(){if(cur<TOTAL)go(cur+1);}
+function prev(){if(cur>0)go(cur-1);}
+function nextScene(){next();}function prevScene(){prev();}
+
+function renderActJump(){
+  const c=document.getElementById('act-jump'); c.innerHTML='';
+  for(const act of ACTS){
+    const b=document.createElement('button'); b.className='act-jump-btn';
+    // Determine if current scene is within this act
+    const actIdx=ACTS.indexOf(act);
+    const nextStart=actIdx<ACTS.length-1?ACTS[actIdx+1].start:TOTAL+1;
+    if(cur>=act.start && cur<nextStart) b.classList.add('active-act');
+    b.textContent=act.label;
+    b.onclick=()=>go(act.start);
+    c.appendChild(b);
+  }
+}
+
+function beginExperience(){document.getElementById('intro').classList.add('hidden');setTimeout(()=>{document.getElementById('intro').style.display='none';go(1);},800);}
+
+function init(){
+  initBG();render();
+  document.addEventListener('click',e=>{if(!e.target.closest('.actor')&&!e.target.closest('.info-panel'))closeIP();});
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')next();else if(e.key==='ArrowLeft')prev();else if(e.key==='Escape')closeIP();});
+  addEventListener('resize',()=>{initBG();render();});
+}
+init();
+<\/script>
+</body>
+</html>
+`;
+    let pvjBlobUrl = null;
+    function launchPVJourney() {
+      const overlay = document.getElementById('pvjOverlay');
+      const btn = document.getElementById('pvjBackBtn');
+      const blob = new Blob([PV_STORY_HTML], {type: 'text/html'});
+      pvjBlobUrl = URL.createObjectURL(blob);
+      overlay.innerHTML = '<iframe src="' + pvjBlobUrl + '"></iframe>';
+      overlay.classList.add('active');
+      btn.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePVJourney() {
+      const overlay = document.getElementById('pvjOverlay');
+      const btn = document.getElementById('pvjBackBtn');
+      overlay.classList.remove('active');
+      btn.classList.remove('active');
+      overlay.innerHTML = '';
+      if (pvjBlobUrl) { URL.revokeObjectURL(pvjBlobUrl); pvjBlobUrl = null; }
+      document.body.style.overflow = '';
+    }
+  </script>
+
 </body>
 </html>
